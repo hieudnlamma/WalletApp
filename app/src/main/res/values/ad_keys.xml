@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="facebook_app_id" translatable="false">99</string>
+    <string name="facebook_client_token" translatable="false">99</string>
+    <string name="applovin_sdk_key" translatable="false">99</string>
+    <string name="adjust_token" translatable="false">99</string>
+    <string name="adjust_ad_impression" translatable="false">99</string>
+    <string name="adjust_applovin" translatable="false">99</string>
+</resources>
