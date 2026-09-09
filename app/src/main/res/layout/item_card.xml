@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="cardHolder" type="String" />
+        <variable name="maskedNumber" type="String" />
+        <variable name="balance" type="String" />
+        <variable name="cardColor" type="Integer" />
+        <variable name="lightCard" type="boolean" />
+        <variable name="compactHeader" type="boolean" />
+        <variable name="onClicked" type="android.view.View.OnClickListener" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_196dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="@{onClicked}"
+        android:outlineAmbientShadowColor="@color/card_shadow"
+        android:outlineSpotShadowColor="@color/card_shadow"
+        app:cardBackgroundColor="@{cardColor ?? @color/hues_purple_indigo}"
+        app:cardCornerRadius="@dimen/_16dp"
+        app:cardElevation="@dimen/_24dp"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="false"
+        app:strokeWidth="0dp"
+        tools:cardBackgroundColor="@color/hues_purple_indigo">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/icn_card_decoration" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="@dimen/_16dp"
+                android:paddingTop="@{compactHeader ? @dimen/_12dp : @dimen/_16dp}"
+                android:paddingBottom="@dimen/_16dp"
+                tools:paddingTop="@dimen/_16dp">
+
+            <TextView
+                android:id="@+id/tvCardHolder"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_8dp"
+                android:fontFamily="@font/sora_semibold"
+                android:includeFontPadding="false"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{cardHolder}"
+                android:textColor="@{lightCard ? @color/neutrals_black : @color/neutrals_white}"
+                android:textSize="@dimen/_12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tvCardNumber"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/abdullah_ghatasheh"
+                tools:textColor="@color/neutrals_white" />
+
+            <TextView
+                android:id="@+id/tvCardNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sora_semibold"
+                android:includeFontPadding="false"
+                android:text="@{maskedNumber}"
+                android:textColor="@{lightCard ? @color/neutrals_black : @color/neutrals_white}"
+                android:textSize="@dimen/_12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/card_number_front"
+                tools:textColor="@color/neutrals_white" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_8dp"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/imvContactless"
+                app:layout_constraintBottom_toBottomOf="parent">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sora_regular"
+                    android:includeFontPadding="false"
+                    android:minHeight="@dimen/_18dp"
+                    android:text="@string/card_balance"
+                    android:textColor="@color/hues_purple_lavender"
+                    android:textSize="@dimen/_12sp" />
+                <TextView
+                    android:id="@+id/tvCardBalance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sora_semibold"
+                    android:includeFontPadding="false"
+                    android:text="@{balance}"
+                    android:textColor="@color/neutrals_white"
+                    android:textSize="@dimen/_21sp"
+                    tools:text="@string/card_balance_sample" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imvContactless"
+                android:layout_width="@dimen/_24dp"
+                android:layout_height="@dimen/_24dp"
+                android:contentDescription="@null"
+                android:src="@drawable/icn_card_contactless"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

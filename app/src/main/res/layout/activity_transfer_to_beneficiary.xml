@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:background="@color/white">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/ToolbarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentInsetEnd="0dp"
+            app:contentInsetStart="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:id="@+id/tvBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:drawableStart="@drawable/icn_back"
+                android:drawablePadding="@dimen/_2dp"
+                android:fontFamily="@font/sora_semibold"
+                android:layout_marginStart="@dimen/_16dp"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="@string/back"
+                android:textColor="@color/hues_blue_celtic_blue"
+                android:textSize="@dimen/_14sp" />
+        </androidx.appcompat.widget.Toolbar>
+
+        <TextView
+            android:id="@+id/tvTransferTo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sora_regular"
+            android:layout_marginStart="@dimen/_16dp"
+            android:layout_marginTop="@dimen/_12dp"
+            android:includeFontPadding="false"
+            android:text="@string/transfer_to"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+        <LinearLayout
+            android:id="@+id/llUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTransferTo">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivAvatarUser"
+                android:layout_width="@dimen/_72dp"
+                android:layout_height="@dimen/_72dp"
+                android:contentDescription="@null"
+                android:scaleType="centerCrop"
+                android:src="@drawable/icn_avatar_default"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Circle" />
+
+            <LinearLayout
+                android:id="@+id/llValueContract"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12dp"
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvUserName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sora_semibold"
+                    android:lineSpacingMultiplier="1.5"
+                    android:includeFontPadding="false"
+                    android:text="@string/ali_ahmed"
+                    android:textColor="@color/neutrals_black"
+                    android:textSize="@dimen/_12sp" />
+
+                <TextView
+                    android:id="@+id/tvPhoneNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingMultiplier="1.5"
+                    android:fontFamily="@font/sora_regular"
+                    android:includeFontPadding="false"
+                    android:text="@string/_1_300_555_0161"
+                    android:textColor="@color/neutrals_slate_gray"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvEnterAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_24dp"
+            android:fontFamily="@font/sora_regular"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="@string/enter_amount"
+            android:textAlignment="center"
+            android:textColor="@color/neutrals_slate_gray"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/llUser" />
+
+        <com.lmt.global.base.view.custom.AmountEditText
+            android:id="@+id/edtAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16dp"
+            android:layout_marginTop="@dimen/_8dp"
+            android:background="@null"
+            android:fontFamily="@font/sora_regular"
+            android:gravity="center"
+            android:hint="@string/amount_placeholder"
+            android:includeFontPadding="false"
+            android:textColor="@color/neutrals_black"
+            android:textColorHint="@color/neutrals_silver_sand"
+            android:textSize="@dimen/_36sp"
+            app:backgroundTint="@null"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvEnterAmount"
+            tools:hint="@string/amount_placeholder">
+            <requestFocus />
+        </com.lmt.global.base.view.custom.AmountEditText>
+
+        <View
+            android:id="@+id/viewOtpUnderline"
+            android:layout_width="@dimen/_197dp"
+            android:layout_height="@dimen/_2dp"
+            android:background="@color/hues_purple_ocean_blue"
+            app:layout_constraintEnd_toEndOf="@id/edtAmount"
+            app:layout_constraintStart_toStartOf="@id/edtAmount"
+            app:layout_constraintTop_toBottomOf="@id/edtAmount" />
+
+        <com.lmt.global.base.view.custom.TopShadowLinearLayout
+            android:id="@+id/layoutKeyboardPanel"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:background="@color/neutrals_white"
+            android:orientation="vertical"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <com.lmt.global.base.view.custom.NumberKeyboardView
+                android:id="@+id/numberKeyboard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/_24dp"
+                android:layout_marginHorizontal="@dimen/_16dp" />
+
+            <TextView
+                android:id="@+id/btnDone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_24dp"
+                android:background="@drawable/bg_wallet_primary_button"
+                android:fontFamily="@font/sora_semibold"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:lineSpacingMultiplier="1.5"
+                android:paddingVertical="@dimen/_12dp"
+                android:layout_marginHorizontal="@dimen/_16dp"
+                android:text="@string/done"
+                android:textColor="@color/neutrals_white"
+                android:textSize="@dimen/_14sp" />
+        </com.lmt.global.base.view.custom.TopShadowLinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSecurePayment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:background="@drawable/bg_btn_bottom_sheet_pay_biller"
+            android:fontFamily="@font/sora_semibold"
+            android:includeFontPadding="false"
+            android:paddingVertical="@dimen/_12dp"
+            android:layout_marginBottom="@dimen/_20dp"
+            android:layout_marginHorizontal="@dimen/_16dp"
+            android:text="@string/secure_payment"
+            android:textAllCaps="false"
+            android:textColor="@color/hues_purple_indigo"
+            android:textSize="@dimen/_14sp"
+            app:backgroundTint="@null"
+            app:icon="@drawable/icn_secure_payment"
+            app:iconGravity="textStart"
+            app:iconPadding="@dimen/_4dp"
+            app:iconTint="@color/hues_purple_indigo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

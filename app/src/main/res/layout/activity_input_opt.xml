@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:background="@color/white">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:id="@+id/btnBack"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@null"
+                    android:layout_marginTop="1dp"
+                    android:src="@drawable/icn_back" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sora_semibold"
+                    android:text="@string/back"
+                    android:textColor="@color/hues_blue_celtic_blue"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:src="@drawable/img_app_name" />
+        </androidx.appcompat.widget.Toolbar>
+
+        <TextView
+            android:id="@+id/tvLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_24dp"
+            android:fontFamily="@font/sora_semibold"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="@string/an_sms_sent_to_your_mobile_number_962_79_xxx_xxxx"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+        <TextView
+            android:id="@+id/tvExplain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_24dp"
+            android:fontFamily="@font/sora_regular"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="@string/enter_six_digit_code"
+            android:textAlignment="center"
+            android:textColor="@color/neutrals_slate_gray"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvLabel" />
+
+        <com.lmt.global.base.view.custom.OtpEditText
+            android:id="@+id/edtOtp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8dp"
+            android:fontFamily="@font/sora_regular"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvExplain"/>
+
+        <View
+            android:id="@+id/viewOtpUnderline"
+            android:layout_width="@dimen/_197dp"
+            android:layout_height="2dp"
+            android:background="@color/hues_purple_ocean_blue"
+            app:layout_constraintEnd_toEndOf="@id/edtOtp"
+            app:layout_constraintStart_toStartOf="@id/edtOtp"
+            app:layout_constraintTop_toBottomOf="@id/edtOtp" />
+
+        <LinearLayout
+            android:id="@+id/llResentCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewOtpUnderline">
+
+            <TextView
+                android:id="@+id/tvResentCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sora_regular"
+                android:text="@string/resent_code"
+                android:textColor="@color/neutrals_slate_gray"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvCountdown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8dp"
+                android:fontFamily="@font/sora_regular"
+                android:text="00:00"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <com.lmt.global.base.view.custom.TopShadowLinearLayout
+            android:id="@+id/layoutKeyboardPanel"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:background="@color/neutrals_white"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <com.lmt.global.base.view.custom.NumberKeyboardView
+                android:id="@+id/numberKeyboard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/_24dp"
+                android:layout_marginHorizontal="@dimen/_16dp" />
+
+            <TextView
+                android:id="@+id/btnDone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_24dp"
+                android:background="@drawable/bg_wallet_primary_button"
+                android:fontFamily="@font/sora_semibold"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:lineSpacingMultiplier="1.5"
+                android:paddingVertical="@dimen/_12dp"
+                android:layout_marginHorizontal="@dimen/_16dp"
+                android:text="@string/done"
+                android:textColor="@color/neutrals_white"
+                android:textSize="@dimen/_14sp" />
+
+        </com.lmt.global.base.view.custom.TopShadowLinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:background="@color/hues_red_snow">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageView
+                android:id="@+id/imvPaymentFail"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_126dp"
+                android:layout_marginTop="@dimen/_68dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/img_payment_fail" />
+
+            <TextView
+                android:id="@+id/tvTransferFailed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sora_semibold"
+                android:includeFontPadding="false"
+                android:layout_marginTop="@dimen/_16dp"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/transfer_failed"
+                android:textColor="@color/neutrals_black"
+                android:textSize="@dimen/_16sp" />
+
+            <TextView
+                android:id="@+id/tvFailDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sora_regular"
+                android:includeFontPadding="false"
+                android:textAlignment="center"
+                android:layout_marginTop="@dimen/_6dp"
+                android:lineSpacingMultiplier="1.5"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/your_transfer_has_been_declined_due_to_a_technical_issue"
+                android:textColor="@color/neutrals_black_coral"
+                android:textSize="@dimen/_12sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/btnBackToWallet"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_20dp"
+            android:background="@drawable/bg_wallet_primary_button"
+            android:fontFamily="@font/sora_semibold"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:paddingVertical="@dimen/_12dp"
+            android:layout_marginHorizontal="@dimen/_16dp"
+            android:text="@string/back_to_wallet"
+            android:lineSpacingMultiplier="1.5"
+            android:textColor="@color/neutrals_white"
+            android:textSize="@dimen/_14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

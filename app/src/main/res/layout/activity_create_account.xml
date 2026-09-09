@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:id="@+id/btnBack"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@null"
+                    android:layout_marginTop="1dp"
+                    android:src="@drawable/icn_back" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sora_semibold"
+                    android:text="@string/back"
+                    android:textColor="@color/hues_blue_celtic_blue"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:src="@drawable/img_app_name" />
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/createAccountScrollView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/neutrals_white"
+            android:clipToPadding="false"
+            android:fillViewport="true"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/neutrals_white"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/_16dp">
+
+                <TextView
+                    android:id="@+id/tvLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sora_semibold"
+                    android:includeFontPadding="false"
+                    android:text="@string/create_account"
+                    android:textColor="@color/neutrals_black"
+                    android:textSize="21sp" />
+
+                <!-- Name -->
+                <TextView
+                    android:id="@+id/tvNameLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_24dp"
+                    android:fontFamily="@font/sora_regular"
+                    android:includeFontPadding="false"
+                    android:text="@string/name"
+                    android:textColor="@color/neutrals_black"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/edtName"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/bg_wallet_input"
+                    android:fontFamily="@font/sora_regular"
+                    android:hint="@string/enter_your_name"
+                    android:importantForAutofill="no"
+                    android:inputType="textPersonName"
+                    android:paddingHorizontal="@dimen/_12dp"
+                    android:singleLine="true"
+                    android:textColor="@color/neutrals_black"
+                    android:textColorHint="@color/neutrals_silver_sand"
+                    android:textSize="14sp" />
+
+                <!-- Email -->
+                <TextView
+                    android:id="@+id/tvEmailLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_24dp"
+                    android:fontFamily="@font/sora_regular"
+                    android:includeFontPadding="false"
+                    android:text="@string/email"
+                    android:textColor="@color/neutrals_black"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/edtEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/bg_wallet_input"
+                    android:fontFamily="@font/sora_regular"
+                    android:hint="@string/enter_your_email"
+                    android:importantForAutofill="no"
+                    android:inputType="textEmailAddress"
+                    android:paddingHorizontal="@dimen/_12dp"
+                    android:singleLine="true"
+                    android:textColor="@color/neutrals_black"
+                    android:textColorHint="@color/neutrals_silver_sand"
+                    android:textSize="14sp" />
+
+                <!-- Password -->
+                <TextView
+                    android:id="@+id/tvPasswordLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_24dp"
+                    android:fontFamily="@font/sora_regular"
+                    android:includeFontPadding="false"
+                    android:text="@string/password"
+                    android:textColor="@color/neutrals_black"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:id="@+id/passwordInputContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/bg_wallet_input"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/_12dp">
+
+                    <EditText
+                        android:id="@+id/edtPassword"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:fontFamily="@font/sora_regular"
+                        android:hint="@string/enter_your_password"
+                        android:importantForAutofill="no"
+                        android:inputType="textPassword"
+                        android:padding="0dp"
+                        android:singleLine="true"
+                        android:textColor="@color/neutrals_black"
+                        android:textColorHint="@color/neutrals_silver_sand"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:id="@+id/ivTogglePassword"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="@dimen/_8dp"
+                        android:contentDescription="@null"
+                        android:src="@drawable/icn_eye_off_line" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_24dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/cbAcceptTerms"
+                        android:gravity="center"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minWidth="@dimen/_24dp"
+                        android:minHeight="@dimen/_24dp"
+                        android:padding="0dp" />
+
+                    <TextView
+                        android:id="@+id/tvTermsAndPrivacy"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="@dimen/_4dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/sora_regular"
+                        android:includeFontPadding="false"
+                        android:textColor="@color/neutrals_black"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/btnCreateNewAccount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_48dp"
+                    android:background="@drawable/bg_wallet_primary_button"
+                    android:fontFamily="@font/sora_semibold"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:paddingVertical="@dimen/_12dp"
+                    android:text="@string/create_a_new_account"
+                    android:textColor="@color/neutrals_white"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:id="@+id/socialDivider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_16dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1"
+                        android:background="@color/neutrals_alice_blue" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:fontFamily="@font/sora_regular"
+                        android:includeFontPadding="false"
+                        android:text="@string/or_continue_using"
+                        android:textColor="@color/neutrals_slate_gray"
+                        android:textSize="12sp"
+                        tools:ignore="HardcodedText" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1"
+                        android:background="@color/neutrals_alice_blue" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/socialLoginContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="@dimen/_16dp"
+                    android:layout_marginBottom="@dimen/_24dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/btnFacebookLogin"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="@dimen/_11dp"
+                        android:layout_weight="1"
+                        android:contentDescription="@null"
+                        android:background="@drawable/bg_wallet_social_button"
+                        android:src="@drawable/icn_facebook"
+                        android:scaleType="centerInside" />
+
+                    <ImageView
+                        android:id="@+id/btnGoogleLogin"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="@dimen/_11dp"
+                        android:layout_marginHorizontal="@dimen/_16dp"
+                        android:layout_weight="1"
+                        android:contentDescription="@null"
+                        android:background="@drawable/bg_wallet_social_button"
+                        android:src="@drawable/icn_google"
+                        android:scaleType="centerInside" />
+
+                    <ImageView
+                        android:id="@+id/btnAppleLogin"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="@dimen/_11dp"
+                        android:layout_weight="1"
+                        android:contentDescription="@null"
+                        android:background="@drawable/bg_wallet_social_button"
+                        android:src="@drawable/icn_apple"
+                        android:scaleType="centerInside" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

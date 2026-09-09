@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View" />
+
+        <variable
+            name="onPayBillsClicked"
+            type="View.OnClickListener" />
+
+        <variable
+            name="onTransferClicked"
+            type="View.OnClickListener" />
+
+        <variable
+            name="onTopUpClicked"
+            type="View.OnClickListener" />
+
+        <variable
+            name="onWithdrawClicked"
+            type="View.OnClickListener" />
+
+        <variable
+            name="onAnalyticsClicked"
+            type="View.OnClickListener" />
+
+        <variable
+            name="onHelpClicked"
+            type="View.OnClickListener" />
+
+        <variable
+            name="onContactUsClicked"
+            type="View.OnClickListener" />
+
+        <variable
+            name="onAboutClicked"
+            type="View.OnClickListener" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/ToolbarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentInsetEnd="0dp"
+            app:contentInsetStart="0dp">
+
+            <TextView
+                android:id="@+id/tvMoreLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sora_semibold"
+                android:paddingHorizontal="@dimen/_16dp"
+                android:includeFontPadding="false"
+                android:text="@string/more"
+                android:textColor="@color/neutrals_black"
+                android:textSize="@dimen/_24sp" />
+        </androidx.appcompat.widget.Toolbar>
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="@dimen/_12dp"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingVertical="@dimen/_12dp">
+
+                    <include
+                        android:id="@+id/itemPayBills"
+                        layout="@layout/item_more_option"
+                        app:iconRes="@{@drawable/icn_more_paybills}"
+                        app:isLastItem="@{false}"
+                        app:onClicked="@{onPayBillsClicked}"
+                        app:optionName="@{@string/pay_bills}" />
+
+                    <include
+                        android:id="@+id/itemTransfer"
+                        layout="@layout/item_more_option"
+                        app:iconRes="@{@drawable/icn_more_transfer}"
+                        app:isLastItem="@{false}"
+                        app:onClicked="@{onTransferClicked}"
+                        app:optionName="@{@string/balance_transfer}" />
+
+                    <include
+                        android:id="@+id/itemTopUp"
+                        layout="@layout/item_more_option"
+                        app:iconRes="@{@drawable/icn_more_topup}"
+                        app:isLastItem="@{false}"
+                        app:onClicked="@{onTopUpClicked}"
+                        app:optionName="@{@string/balance_top_up}" />
+
+                    <include
+                        android:id="@+id/itemWithdraw"
+                        layout="@layout/item_more_option"
+                        app:iconRes="@{@drawable/icn_more_withdraw}"
+                        app:isLastItem="@{false}"
+                        app:onClicked="@{onWithdrawClicked}"
+                        app:optionName="@{@string/balance_withdraw}" />
+
+                    <include
+                        android:id="@+id/itemAnalytics"
+                        layout="@layout/item_more_option"
+                        app:iconRes="@{@drawable/icn_more_analytics}"
+                        app:isLastItem="@{true}"
+                        app:onClicked="@{onAnalyticsClicked}"
+                        app:optionName="@{@string/analytics}" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_6dp"
+                    android:background="@color/neutrals_alice_blue" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/_12dp">
+
+                    <include
+                        android:id="@+id/itemHelp"
+                        layout="@layout/item_more_option"
+                        app:iconRes="@{@drawable/icn_more_help}"
+                        app:isLastItem="@{false}"
+                        app:onClicked="@{onHelpClicked}"
+                        app:optionName="@{@string/help}" />
+
+                    <include
+                        android:id="@+id/itemContactUs"
+                        layout="@layout/item_more_option"
+                        app:iconRes="@{@drawable/icn_more_contact_us}"
+                        app:isLastItem="@{false}"
+                        app:onClicked="@{onContactUsClicked}"
+                        app:optionName="@{@string/contact_us}" />
+
+                    <include
+                        android:id="@+id/itemAbout"
+                        layout="@layout/item_more_option"
+                        app:iconRes="@{@drawable/icn_more_about}"
+                        app:isLastItem="@{true}"
+                        app:onClicked="@{onAboutClicked}"
+                        app:optionName="@{@string/about}" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+</layout>

@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.jetbrains.kotlin.kapt)
     alias(libs.plugins.dev.ksp)
     alias(libs.plugins.jetbrains.kotlin.parcelize)
     // alias(libs.plugins.google.services)
@@ -28,6 +29,12 @@ android {
         setProperty(
             "archivesBaseName",
             "AppName_v${versionName}_v${versionCode}_${formattedDate}"
+        )
+
+        buildConfigField(
+            "String",
+            "WALLET_INTER_SPLASH",
+            "\"ca-app-pub-3940256099942544/1033173712\""
         )
     }
 

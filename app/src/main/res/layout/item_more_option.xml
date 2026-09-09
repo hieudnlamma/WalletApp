@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+
+        <variable
+            name="isLastItem"
+            type="Boolean" />
+
+        <variable
+            name="iconRes"
+            type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="optionName"
+            type="String" />
+
+        <variable
+            name="onClicked"
+            type="View.OnClickListener" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutItemOption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{onClicked}"
+            android:paddingVertical="@dimen/_12dp"
+            android:paddingHorizontal="@dimen/_16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imvOption"
+                android:layout_width="@dimen/_32dp"
+                android:layout_height="@dimen/_32dp"
+                android:contentDescription="@null"
+                android:scaleType="centerCrop"
+                android:src="@{iconRes}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded8"
+                tools:src="@drawable/icn_more_paybills"/>
+
+            <TextView
+                android:id="@+id/tvNameApp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8dp"
+                android:fontFamily="@font/sora_semibold"
+                android:includeFontPadding="false"
+                android:text="@{optionName}"
+                android:textColor="@color/neutrals_black"
+                android:textSize="@dimen/_12sp"
+                app:layout_constraintBottom_toBottomOf="@id/imvOption"
+                app:layout_constraintStart_toEndOf="@id/imvOption"
+                app:layout_constraintTop_toTopOf="@id/imvOption"
+                tools:text="Pay bills"/>
+
+            <ImageView
+                android:id="@+id/imvDetail"
+                android:layout_width="@dimen/_16dp"
+                android:layout_height="@dimen/_16dp"
+                android:contentDescription="@null"
+                android:src="@drawable/icn_arrow_right"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1dp"
+            android:layout_marginHorizontal="@dimen/_16dp"
+            android:background="@color/neutrals_alice_blue"
+            android:visibility="@{isLastItem ? View.GONE : View.VISIBLE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutItemOption" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

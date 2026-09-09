@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="currentIndex"
+            type="Integer" />
+
+        <variable
+            name="onHomeClicked"
+            type="View.OnClickListener" />
+
+        <variable
+            name="onHistoryClicked"
+            type="View.OnClickListener" />
+
+        <variable
+            name="onCardsClicked"
+            type="View.OnClickListener" />
+
+        <variable
+            name="onMoreClicked"
+            type="View.OnClickListener" />
+    </data>
+
+    <FrameLayout
+        android:id="@+id/layoutBottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_gravity="bottom">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:weightSum="4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingVertical="@dimen/_8dp"
+                android:background="@{(currentIndex ?? 0) == 0 ? @drawable/bg_bottom_bar_selected : @drawable/bg_bottom_bar_unselected}"
+                android:gravity="center"
+                android:onClick="@{onHomeClicked}"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:contentDescription="@null"
+                    android:src="@{(currentIndex ?? 0) == 0 ? @drawable/ic_home_selected : @drawable/ic_home_unselected}"
+                    tools:src="@drawable/ic_home_selected" />
+
+                <TextView
+                    android:id="@+id/tvHome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/sora_regular"
+                    android:maxLines="1"
+                    android:text="@string/home"
+                    android:textColor="@{(currentIndex ?? 0) == 0 ? @color/hues_purple_majorelle_blue : @color/neutrals_black_coral}"
+                    android:textSize="12sp"
+                    tools:textColor="@color/hues_purple_majorelle_blue" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingVertical="@dimen/_8dp"
+                android:background="@{(currentIndex ?? 0) == 1 ? @drawable/bg_bottom_bar_selected : @drawable/bg_bottom_bar_unselected}"
+                android:gravity="center"
+                android:onClick="@{onHistoryClicked}"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:contentDescription="@null"
+                    android:src="@{(currentIndex ?? 0) == 1 ? @drawable/icn_history_selected : @drawable/icn_history_unselected}"
+                    tools:src="@drawable/icn_cards_unselected" />
+
+                <TextView
+                    android:id="@+id/tvHistory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/sora_regular"
+                    android:maxLines="1"
+                    android:text="@string/history"
+                    android:textColor="@{(currentIndex ?? 0) == 1 ? @color/hues_purple_majorelle_blue : @color/neutrals_black_coral}"
+                    android:textSize="12sp"
+                    tools:textColor="@color/neutrals_black_coral" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingVertical="@dimen/_8dp"
+                android:background="@{(currentIndex ?? 0) == 2 ? @drawable/bg_bottom_bar_selected : @drawable/bg_bottom_bar_unselected}"
+                android:gravity="center"
+                android:onClick="@{onCardsClicked}"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:contentDescription="@null"
+                    android:src="@{(currentIndex ?? 0) == 2 ? @drawable/icn_cards_selected : @drawable/icn_cards_unselected}"
+                    tools:src="@drawable/icn_cards_unselected" />
+
+                <TextView
+                    android:id="@+id/tvCards"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/sora_regular"
+                    android:maxLines="1"
+                    android:text="@string/cards"
+                    android:textColor="@{(currentIndex ?? 0) == 2 ? @color/hues_purple_majorelle_blue : @color/neutrals_black_coral}"
+                    android:textSize="12sp"
+                    tools:textColor="@color/neutrals_black_coral" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingVertical="@dimen/_8dp"
+                android:background="@{(currentIndex ?? 0) == 3 ? @drawable/bg_bottom_bar_selected : @drawable/bg_bottom_bar_unselected}"
+                android:gravity="center"
+                android:onClick="@{onMoreClicked}"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:contentDescription="@null"
+                    android:src="@{(currentIndex ?? 0) == 3 ? @drawable/icn_more_selected : @drawable/icn_more_unselected}"
+                    tools:src="@drawable/icn_more_unselected" />
+
+                <TextView
+                    android:id="@+id/tvMore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/sora_regular"
+                    android:maxLines="1"
+                    android:text="@string/more"
+                    android:textColor="@{(currentIndex ?? 0) == 3 ? @color/hues_purple_majorelle_blue : @color/neutrals_black_coral}"
+                    android:textSize="12sp"
+                    tools:textColor="@color/neutrals_black_coral" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </FrameLayout>
+</layout>

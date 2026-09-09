@@ -7,6 +7,12 @@ import android.content.SharedPreferences
 import androidx.fragment.app.FragmentActivity
 import androidx.room.Room
 import com.lmt.global.base.common.CommonViewModel
+import com.lmt.global.base.presenter.main.MainViewModel
+import com.lmt.global.base.presenter.main.cards.CardsViewModel
+import com.lmt.global.base.presenter.main.history.HistoryViewModel
+import com.lmt.global.base.presenter.main.home.HomeViewModel
+import com.lmt.global.base.presenter.main.more.MoreViewModel
+import com.lmt.global.base.presenter.profile.ProfileViewModel
 import com.lmt.global.base.data.AppDatabase
 import com.lmt.global.base.helper.firebase.RemoteConfigManagement
 import com.lmt.global.base.helper.permission.IPermission
@@ -66,5 +72,11 @@ private fun viewModels() = object : Feature {
     override fun name() = "viewmodel"
     override fun diModule() = module {
         viewModelOf(::CommonViewModel)
+        viewModelOf(::MainViewModel)
+        viewModelOf(::HomeViewModel)
+        viewModelOf(::HistoryViewModel)
+        viewModelOf(::CardsViewModel)
+        viewModelOf(::MoreViewModel)
+        viewModelOf(::ProfileViewModel)
     }
 }

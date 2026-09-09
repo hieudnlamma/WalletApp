@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+
+        <variable
+            name="isLastItem"
+            type="Boolean" />
+
+        <variable
+            name="iconRes"
+            type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="optionName"
+            type="String" />
+
+        <variable
+            name="optionValue"
+            type="String" />
+
+        <variable
+            name="showEdit"
+            type="Boolean" />
+
+        <variable
+            name="showDetail"
+            type="Boolean" />
+
+        <variable
+            name="onClicked"
+            type="View.OnClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:showIn="@layout/activity_profile">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutItemProfileSettingOption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{onClicked}"
+            android:paddingVertical="@dimen/_12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imvOptionImage"
+                android:layout_width="@dimen/_32dp"
+                android:layout_height="@dimen/_32dp"
+                android:contentDescription="@null"
+                android:scaleType="centerCrop"
+                android:src="@{iconRes}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded8"
+                tools:src="@drawable/icn_full_name" />
+
+            <LinearLayout
+                android:id="@+id/layoutOptionContent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8dp"
+                android:layout_marginEnd="@dimen/_8dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@id/imvOptionImage"
+                app:layout_constraintEnd_toStartOf="@id/tvEdit"
+                app:layout_constraintStart_toEndOf="@id/imvOptionImage"
+                app:layout_constraintTop_toTopOf="@id/imvOptionImage">
+
+                <TextView
+                    android:id="@+id/tvNameOption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sora_regular"
+                    android:includeFontPadding="false"
+                    android:text="@{optionName}"
+                    android:textColor="@color/neutrals_slate_gray"
+                    android:textSize="@dimen/_12sp"
+                    android:visibility="@{showDetail ? View.GONE : View.VISIBLE}"
+                    tools:text="@string/full_name"
+                    tools:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/tvValueOption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sora_semibold"
+                    android:includeFontPadding="false"
+                    android:text="@{optionValue}"
+                    android:textColor="@color/neutrals_black"
+                    android:textSize="@dimen/_12sp"
+                    android:visibility="@{showDetail ? View.GONE : View.VISIBLE}"
+                    tools:text="@string/abdullah_ghatasheh"
+                    tools:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/tvDetailOptionName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sora_semibold"
+                    android:includeFontPadding="false"
+                    android:text="@{optionName}"
+                    android:textColor="@color/neutrals_black"
+                    android:textSize="@dimen/_12sp"
+                    android:visibility="@{showDetail ? View.VISIBLE : View.GONE}"
+                    tools:text="@string/change_password"
+                    tools:visibility="gone" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sora_regular"
+                android:includeFontPadding="false"
+                android:text="@string/edit"
+                android:textColor="@color/hues_blue_celtic_blue"
+                android:textSize="@dimen/_12sp"
+                android:visibility="@{showEdit ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/imvDetailTransaction"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/imvDetailTransaction"
+                android:layout_width="@dimen/_16dp"
+                android:layout_height="@dimen/_16dp"
+                android:contentDescription="@null"
+                android:src="@drawable/icn_arrow_right"
+                android:visibility="@{showDetail ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="gone" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1dp"
+            android:background="@color/neutrals_alice_blue"
+            android:visibility="@{isLastItem ? View.GONE : View.VISIBLE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutItemProfileSettingOption" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

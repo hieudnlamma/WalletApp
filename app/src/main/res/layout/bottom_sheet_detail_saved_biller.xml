@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="amount"
+            type="java.math.BigDecimal" />
+
+        <variable
+            name="currencyCode"
+            type="String" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_bottom_sheet_white"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/_16dp"
+        android:paddingTop="@dimen/_16dp"
+        android:paddingBottom="@dimen/_40dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutItemHistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivAvatarApp"
+                android:layout_width="@dimen/_56dp"
+                android:layout_height="@dimen/_56dp"
+                android:contentDescription="@null"
+                android:scaleType="centerCrop"
+                android:src="@drawable/icn_more_paybills"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded8" />
+
+            <LinearLayout
+                android:id="@+id/layoutListLatestTransactions"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@id/ivAvatarApp"
+                app:layout_constraintStart_toEndOf="@id/ivAvatarApp"
+                android:layout_marginEnd="@dimen/_8dp"
+                app:layout_constraintEnd_toStartOf="@id/tvDone"
+                app:layout_constraintTop_toTopOf="@id/ivAvatarApp">
+
+                <TextView
+                    android:id="@+id/tvNameApp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sora_semibold"
+                    android:includeFontPadding="false"
+                    android:text="@string/electricity"
+                    android:lineSpacingMultiplier="1.5"
+                    android:textColor="@color/neutrals_black"
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:id="@+id/tvDatetime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sora_regular"
+                    android:includeFontPadding="false"
+                    android:text="@string/utility"
+                    android:lineSpacingMultiplier="1.5"
+                    android:textColor="@color/neutrals_slate_gray"
+                    android:textSize="@dimen/_14sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvDone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sora_semibold"
+                android:includeFontPadding="false"
+                android:text="@string/done"
+                android:lineSpacingMultiplier="1.5"
+                android:textColor="@color/hues_blue_celtic_blue"
+                android:textSize="@dimen/_14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tvMoney"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_24dp"
+            android:minHeight="@dimen/_64dp"
+            android:paddingHorizontal="@dimen/_8dp"
+            android:paddingVertical="@dimen/_16dp"
+            android:gravity="center"
+            android:background="@drawable/bg_history_amount"
+            android:fontFamily="@font/sora_semibold"
+            android:includeFontPadding="false"
+            app:savedBillerAmount="@{amount}"
+            app:savedBillerCurrency="@{currencyCode}"
+            android:textSize="@dimen/_21sp"
+            tools:text="@string/due_132_32"
+            tools:backgroundTint="@color/hues_red_snow"
+            tools:textColor="@color/hues_red_golden_gate_bridge" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8dp"
+            android:background="@drawable/bg_history_detail_field"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/_16dp"
+            android:paddingVertical="@dimen/_12dp">
+            <TextView
+                android:id="@+id/tvDateLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sora_regular"
+                android:includeFontPadding="false"
+                android:minHeight="@dimen/_18dp"
+                android:textSize="@dimen/_12sp"
+                android:textColor="@color/neutrals_slate_gray"
+                android:text="@string/due_date" />
+            <TextView
+                android:id="@+id/tvSavedDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sora_semibold"
+                android:includeFontPadding="false"
+                android:minHeight="@dimen/_18dp"
+                android:textSize="@dimen/_12sp"
+                android:textColor="@color/neutrals_black_coral"
+                tools:text="December 29, 2022 - 12:32" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8dp"
+            android:background="@drawable/bg_history_detail_field"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/_16dp"
+            android:paddingVertical="@dimen/_12dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sora_regular"
+                android:includeFontPadding="false"
+                android:minHeight="@dimen/_18dp"
+                android:text="@string/registration_no"
+                android:textColor="@color/neutrals_slate_gray"
+                android:textSize="@dimen/_12sp" />
+
+            <TextView
+                android:id="@+id/tvTransactionNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sora_semibold"
+                android:includeFontPadding="false"
+                android:minHeight="@dimen/_18dp"
+                android:textColor="@color/neutrals_black_coral"
+                android:textSize="@dimen/_12sp"
+                tools:text="23010412432431" />
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSecurePayment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_btn_bottom_sheet_pay_biller"
+            android:fontFamily="@font/sora_semibold"
+            android:includeFontPadding="false"
+            android:paddingVertical="@dimen/_12dp"
+            android:layout_marginTop="@dimen/_24dp"
+            android:text="@string/secure_payment"
+            android:textAllCaps="false"
+            android:textColor="@color/hues_purple_indigo"
+            android:textSize="@dimen/_14sp"
+            app:backgroundTint="@null"
+            app:icon="@drawable/icn_secure_payment"
+            app:iconGravity="textStart"
+            app:iconPadding="@dimen/_4dp"
+            app:iconTint="@color/hues_purple_indigo"/>
+
+    </LinearLayout>
+</layout>

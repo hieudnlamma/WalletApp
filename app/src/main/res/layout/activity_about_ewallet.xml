@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+
+        <variable
+            name="avatar"
+            type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="onFullNameClicked"
+            type="View.OnClickListener" />
+
+        <variable
+            name="onMobileClicked"
+            type="View.OnClickListener" />
+
+        <variable
+            name="onEmailClicked"
+            type="View.OnClickListener" />
+
+        <variable
+            name="onChangePasswordClicked"
+            type="View.OnClickListener" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/ToolbarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentInsetEnd="0dp"
+            app:contentInsetStart="0dp">
+
+            <TextView
+                android:id="@+id/tvBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:drawableStart="@drawable/icn_back"
+                android:drawablePadding="@dimen/_2dp"
+                android:fontFamily="@font/sora_semibold"
+                android:layout_marginStart="@dimen/_16dp"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="@string/back"
+                android:textColor="@color/hues_blue_celtic_blue"
+                android:textSize="@dimen/_14sp" />
+        </androidx.appcompat.widget.Toolbar>
+
+        <TextView
+            android:id="@+id/tvAboutEWalletLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sora_regular"
+            android:includeFontPadding="false"
+            android:layout_marginTop="@dimen/_40dp"
+            android:paddingHorizontal="@dimen/_16dp"
+            android:text="@string/about_ewallet"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_24sp" />
+
+        <TextView
+            android:id="@+id/tvTimeJoined"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sora_regular"
+            android:includeFontPadding="false"
+            android:layout_marginTop="@dimen/_40dp"
+            android:paddingHorizontal="@dimen/_16dp"
+            android:text="@string/our_app_allows_you_to_easily_store_manage_and_spend_your_money_on_the_go_with_our_secure_platform_you_can_make_transactions_check_your_balance_and_track_your_spending_all_in_one_place_whether_you_re_paying_bills_shopping_online_or_sending_money_to_friends_and_family_our_app_makes_it_easy_and_convenient_to_do_so_plus_with_our_various_promotions_and_discounts_you_can_save_even_more_while_using_our_app_thank_you_for_choosing_us_as_your_preferred_e_wallet_solution_if_you_have_any_questions_or_feedback_please_don_t_hesitate_to_contact_us_we_re_always_here_to_help"
+            android:textColor="@color/neutrals_black_coral"
+            android:textSize="@dimen/_12sp" />
+    </LinearLayout>
+</layout>

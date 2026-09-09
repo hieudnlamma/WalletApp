@@ -55,6 +55,7 @@ class RemoteConfigManagement(
     internal val enableNativeOnboardingLast = true
     internal val enableInterShared = true
     internal val distanceTimeShowInter = 20_000L
+    internal val enableAdmobAd = true
 
     internal val username = ""
     internal val password = ""

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+
+        <variable
+            name="avatar"
+            type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="onFullNameClicked"
+            type="View.OnClickListener" />
+
+        <variable
+            name="onMobileClicked"
+            type="View.OnClickListener" />
+
+        <variable
+            name="onEmailClicked"
+            type="View.OnClickListener" />
+
+        <variable
+            name="onChangePasswordClicked"
+            type="View.OnClickListener" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/ToolbarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentInsetEnd="0dp"
+            app:contentInsetStart="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_16dp">
+
+                <TextView
+                    android:id="@+id/tvBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:drawableStart="@drawable/icn_back"
+                    android:drawablePadding="@dimen/_2dp"
+                    android:fontFamily="@font/sora_semibold"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:text="@string/back"
+                    android:textColor="@color/hues_blue_celtic_blue"
+                    android:textSize="@dimen/_14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
+                    android:id="@+id/tvProfileSettingsLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sora_semibold"
+                    android:includeFontPadding="false"
+                    android:text="@string/profile_settings"
+                    android:textColor="@color/neutrals_black"
+                    android:textSize="@dimen/_16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <include
+            android:id="@+id/imvAvatarUser"
+            layout="@layout/view_verified_avatar"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="wrap_content"
+            app:avatar="@{avatar ?? @drawable/icn_avatar_default}"
+            tools:layout_width="@dimen/_104dp"
+            tools:layout_height="@dimen/_104dp" />
+
+        <TextView
+            android:id="@+id/tvUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sora_semibold"
+            android:includeFontPadding="false"
+            android:layout_marginTop="@dimen/_8dp"
+            android:text="@string/abdullah_ghatasheh"
+            android:textColor="@color/neutrals_black"
+            android:textSize="@dimen/_14sp"
+            android:layout_gravity="center_horizontal"
+            tools:text="@string/abdullah_ghatasheh" />
+
+        <TextView
+            android:id="@+id/tvTimeJoined"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sora_regular"
+            android:includeFontPadding="false"
+            android:text="@string/joined_since"
+            android:textColor="@color/neutrals_slate_gray"
+            android:textSize="@dimen/_12sp"
+            android:layout_gravity="center_horizontal"
+            tools:text="@string/joined_since" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_40dp"
+                android:paddingHorizontal="@dimen/_16dp"
+                android:orientation="vertical">
+
+                <include
+                    android:id="@+id/itemFullName"
+                    layout="@layout/item_profile_setting_option"
+                    app:iconRes="@{@drawable/icn_full_name}"
+                    app:isLastItem="@{false}"
+                    app:onClicked="@{onFullNameClicked}"
+                    app:optionName="@{@string/full_name}"
+                    app:optionValue="@{@string/abdullah_ghatasheh}"
+                    app:showDetail="@{false}"
+                    app:showEdit="@{true}" />
+
+                <include
+                    android:id="@+id/itemMobile"
+                    layout="@layout/item_profile_setting_option"
+                    app:iconRes="@{@drawable/icn_mobile}"
+                    app:isLastItem="@{false}"
+                    app:onClicked="@{onMobileClicked}"
+                    app:optionName="@{@string/mobile}"
+                    app:optionValue="@{@string/profile_mobile_default}"
+                    app:showDetail="@{false}"
+                    app:showEdit="@{true}" />
+
+                <include
+                    android:id="@+id/itemEmail"
+                    layout="@layout/item_profile_setting_option"
+                    app:iconRes="@{@drawable/icn_email}"
+                    app:isLastItem="@{false}"
+                    app:onClicked="@{onEmailClicked}"
+                    app:optionName="@{@string/email}"
+                    app:optionValue="@{@string/profile_email_default}"
+                    app:showDetail="@{false}"
+                    app:showEdit="@{true}" />
+
+                <include
+                    android:id="@+id/itemChangePassword"
+                    layout="@layout/item_profile_setting_option"
+                    app:iconRes="@{@drawable/icn_change_password}"
+                    app:isLastItem="@{true}"
+                    app:onClicked="@{onChangePasswordClicked}"
+                    app:optionName="@{@string/change_password}"
+                    app:optionValue="@{null}"
+                    app:showDetail="@{true}"
+                    app:showEdit="@{false}" />
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+</layout>

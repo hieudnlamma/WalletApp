@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="amount"
+            type="java.math.BigDecimal" />
+
+        <variable
+            name="currencyCode"
+            type="String" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_bottom_sheet_white"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/_16dp"
+        android:paddingTop="@dimen/_16dp"
+        android:paddingBottom="@dimen/_40dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutItemHistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivAvatarApp"
+                android:layout_width="@dimen/_56dp"
+                android:layout_height="@dimen/_56dp"
+                android:contentDescription="@null"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_app_default"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded8" />
+
+            <LinearLayout
+                android:id="@+id/layoutListLatestTransactions"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@id/ivAvatarApp"
+                app:layout_constraintStart_toEndOf="@id/ivAvatarApp"
+                android:layout_marginEnd="@dimen/_8dp"
+                app:layout_constraintEnd_toStartOf="@id/tvDone"
+                app:layout_constraintTop_toTopOf="@id/ivAvatarApp">
+
+                <TextView
+                    android:id="@+id/tvNameApp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sora_semibold"
+                    android:includeFontPadding="false"
+                    android:text="@string/walmart"
+                    android:textColor="@color/neutrals_black"
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:id="@+id/tvDatetime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2dp"
+                    android:fontFamily="@font/sora_regular"
+                    android:includeFontPadding="false"
+                    android:text="@string/retailer_corporation"
+                    android:textColor="@color/neutrals_slate_gray"
+                    android:textSize="@dimen/_14sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvDone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sora_semibold"
+                android:includeFontPadding="false"
+                android:text="@string/done"
+                android:textColor="@color/hues_blue_celtic_blue"
+                android:textSize="@dimen/_14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tvMoney"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_24dp"
+            android:minHeight="@dimen/_64dp"
+            android:paddingHorizontal="@dimen/_8dp"
+            android:paddingVertical="@dimen/_16dp"
+            android:gravity="center"
+            android:background="@drawable/bg_history_amount"
+            android:fontFamily="@font/sora_semibold"
+            android:includeFontPadding="false"
+            android:textSize="@dimen/_21sp"
+            app:historyAmount="@{amount}"
+            app:historyCurrency="@{currencyCode}"
+            tools:text="@string/_35_23"
+            tools:backgroundTint="@color/hues_red_snow"
+            tools:textColor="@color/hues_red_golden_gate_bridge" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8dp"
+            android:background="@drawable/bg_history_detail_field"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/_16dp"
+            android:paddingVertical="@dimen/_12dp">
+            <TextView
+                android:id="@+id/tvDateLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sora_regular"
+                android:includeFontPadding="false"
+                android:minHeight="@dimen/_18dp"
+                android:textSize="@dimen/_12sp"
+                android:textColor="@color/neutrals_slate_gray"
+                android:text="@string/today" />
+            <TextView
+                android:id="@+id/tvTransactionDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sora_semibold"
+                android:includeFontPadding="false"
+                android:minHeight="@dimen/_18dp"
+                android:textSize="@dimen/_12sp"
+                android:textColor="@color/neutrals_black_coral"
+                tools:text="December 29, 2022 - 12:32" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8dp"
+            android:background="@drawable/bg_history_detail_field"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/_16dp"
+            android:paddingEnd="@dimen/_4dp"
+            android:paddingVertical="@dimen/_6dp">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sora_regular"
+                    android:includeFontPadding="false"
+                    android:minHeight="@dimen/_18dp"
+                    android:textSize="@dimen/_12sp"
+                    android:textColor="@color/neutrals_slate_gray"
+                    android:text="@string/transaction_no" />
+                <TextView
+                    android:id="@+id/tvTransactionNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sora_semibold"
+                    android:includeFontPadding="false"
+                    android:minHeight="@dimen/_18dp"
+                    android:textSize="@dimen/_12sp"
+                    android:textColor="@color/neutrals_black_coral"
+                    tools:text="23010412432431" />
+            </LinearLayout>
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btnCopyTransaction"
+                android:layout_width="@dimen/_48dp"
+                android:layout_height="@dimen/_48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="@dimen/_12dp"
+                android:contentDescription="@string/copy_transaction_number"
+                app:srcCompat="@drawable/icn_copy_transaction" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvReportProblem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_24dp"
+            android:background="?attr/selectableItemBackground"
+            android:drawableStart="@drawable/icn_red_flag"
+            android:drawablePadding="@dimen/_2dp"
+            android:fontFamily="@font/sora_semibold"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="@string/report_a_problem"
+            android:textColor="@color/hues_red_golden_gate_bridge"
+            android:textSize="@dimen/_14sp" />
+
+
+    </LinearLayout>
+</layout>

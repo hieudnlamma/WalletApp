@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="balanceWhole"
+            type="String" />
+        <variable
+            name="balanceFraction"
+            type="String" />
+        <variable
+            name="onTopUpClicked"
+            type="View.OnClickListener" />
+        <variable
+            name="onWithdrawClicked"
+            type="View.OnClickListener" />
+        <variable
+            name="onTransferClicked"
+            type="View.OnClickListener" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/layoutBalance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_balance_card"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingHorizontal="32dp"
+        android:paddingVertical="24dp">
+
+        <TextView
+            android:id="@+id/tvBalanceLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="18dp"
+            android:fontFamily="@font/sora_regular"
+            android:includeFontPadding="false"
+            android:gravity="center"
+            android:text="@string/balance_main_label"
+            android:textColor="@color/balance_label"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="54dp"
+            android:baselineAligned="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvBalanceWhole"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sora_semibold"
+                android:includeFontPadding="false"
+                android:text="@{balanceWhole ?? `$14,235`}"
+                android:textColor="@color/neutrals_white"
+                android:textSize="36sp"
+                tools:text="$14,235" />
+
+            <TextView
+                android:id="@+id/tvBalanceFraction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sora_regular"
+                android:includeFontPadding="false"
+                android:text="@{balanceFraction ?? `.34`}"
+                android:textColor="@color/neutrals_white"
+                android:textSize="18sp"
+                tools:text=".34" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutBalanceActions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/btnTopUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:focusable="true"
+                android:gravity="center"
+                android:onClick="@{onTopUpClicked}"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/icn_topup" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/sora_regular"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:minHeight="18dp"
+                    android:text="@string/balance_top_up"
+                    android:textColor="@color/neutrals_white"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="24dp"
+                android:background="@color/hues_purple_majorelle_blue" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+            <LinearLayout
+                android:id="@+id/btnWithdraw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:focusable="true"
+                android:gravity="center"
+                android:onClick="@{onWithdrawClicked}"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/icn_withdraw" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:minHeight="18dp"
+                    android:fontFamily="@font/sora_regular"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:text="@string/balance_withdraw"
+                    android:textColor="@color/neutrals_white"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="24dp"
+                android:background="@color/hues_purple_majorelle_blue" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+            <LinearLayout
+                android:id="@+id/btnTransfer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:focusable="true"
+                android:gravity="center"
+                android:onClick="@{onTransferClicked}"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/icn_transfer" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:minHeight="18dp"
+                    android:fontFamily="@font/sora_regular"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:text="@string/balance_transfer"
+                    android:textColor="@color/neutrals_white"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</layout>

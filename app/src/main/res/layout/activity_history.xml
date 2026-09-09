@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/ToolbarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentInsetEnd="0dp"
+            app:contentInsetStart="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="16dp">
+
+                <TextView
+                    android:id="@+id/tvHistoryLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/sora_semibold"
+                    android:includeFontPadding="false"
+                    android:text="@string/history"
+                    android:textColor="@color/neutrals_black"
+                    android:textSize="24sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/edtSearchHistory"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:autofillHints=""
+                        android:background="@drawable/bg_history_search_field"
+                        android:paddingVertical="@dimen/_8dp"
+                        android:paddingHorizontal="@dimen/_12dp"
+                        android:drawableStart="@drawable/icn_search"
+                        android:drawablePadding="8dp"
+                        android:fontFamily="@font/sora_regular"
+                        android:gravity="center_vertical"
+                        android:hint="@string/search_value_hint"
+                        android:imeOptions="actionSearch"
+                        android:includeFontPadding="false"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:textColor="@color/neutrals_black"
+                        android:textColorHint="@color/neutrals_silver_sand"
+                        android:textSize="@dimen/_14sp"
+                        tools:text="" />
+
+                    <TextView
+                        android:id="@+id/btnFilter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/bg_history_search_field"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/icn_filter"
+                        android:drawablePadding="6dp"
+                        android:focusable="true"
+                        android:fontFamily="@font/sora_regular"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:minWidth="86dp"
+                        android:paddingVertical="@dimen/_8dp"
+                        android:paddingHorizontal="@dimen/_12dp"
+                        android:text="@string/filter"
+                        android:textColor="@color/neutrals_black"
+                        android:textSize="@dimen/_14sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvListTransactionsHistory"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_container_history"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:orientation="vertical"/>
+
+    </LinearLayout>
+</layout>
