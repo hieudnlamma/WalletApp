@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="android.view.View" />
 
         <variable
@@ -30,8 +31,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -41,78 +42,68 @@
             app:contentInsetEnd="0dp"
             app:contentInsetStart="0dp">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tvBack"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="@dimen/_16dp">
+                android:layout_marginStart="@dimen/_8dp"
+                android:background="?attr/selectableItemBackground"
+                android:drawablePadding="@dimen/_2dp"
+                android:fontFamily="@font/sora_semibold"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:padding="@dimen/_8dp"
+                android:text="@string/back"
+                android:textColor="@color/hues_blue_celtic_blue"
+                android:textSize="@dimen/_14sp"
+                app:drawableStartCompat="@drawable/icn_back" />
 
-                <TextView
-                    android:id="@+id/tvBack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/selectableItemBackground"
-                    android:drawableStart="@drawable/icn_back"
-                    android:drawablePadding="@dimen/_2dp"
-                    android:fontFamily="@font/sora_semibold"
-                    android:gravity="center"
-                    android:includeFontPadding="false"
-                    android:text="@string/back"
-                    android:textColor="@color/hues_blue_celtic_blue"
-                    android:textSize="@dimen/_14sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+            <TextView
+                android:id="@+id/tvProfileSettingsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/sora_semibold"
+                android:includeFontPadding="false"
+                android:text="@string/profile_settings"
+                android:textColor="@color/neutrals_black"
+                android:textSize="@dimen/_16sp" />
 
-                <TextView
-                    android:id="@+id/tvProfileSettingsLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/sora_semibold"
-                    android:includeFontPadding="false"
-                    android:text="@string/profile_settings"
-                    android:textColor="@color/neutrals_black"
-                    android:textSize="@dimen/_16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.appcompat.widget.Toolbar>
 
         <include
             android:id="@+id/imvAvatarUser"
             layout="@layout/view_verified_avatar"
             android:layout_width="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             app:avatar="@{avatar ?? @drawable/icn_avatar_default}"
-            tools:layout_width="@dimen/_104dp"
-            tools:layout_height="@dimen/_104dp" />
+            tools:layout_height="@dimen/_104dp"
+            tools:layout_width="@dimen/_104dp" />
 
         <TextView
             android:id="@+id/tvUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/_8dp"
             android:fontFamily="@font/sora_semibold"
             android:includeFontPadding="false"
-            android:layout_marginTop="@dimen/_8dp"
             android:text="@string/abdullah_ghatasheh"
             android:textColor="@color/neutrals_black"
             android:textSize="@dimen/_14sp"
-            android:layout_gravity="center_horizontal"
             tools:text="@string/abdullah_ghatasheh" />
 
         <TextView
             android:id="@+id/tvTimeJoined"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:fontFamily="@font/sora_regular"
             android:includeFontPadding="false"
             android:text="@string/joined_since"
             android:textColor="@color/neutrals_slate_gray"
             android:textSize="@dimen/_12sp"
-            android:layout_gravity="center_horizontal"
             tools:text="@string/joined_since" />
 
         <ScrollView
@@ -124,9 +115,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_40dp"
-                android:paddingHorizontal="@dimen/_16dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/_20dp"
+                android:paddingTop="@dimen/_40dp">
 
                 <include
                     android:id="@+id/itemFullName"
@@ -173,6 +164,5 @@
                     app:showEdit="@{false}" />
             </LinearLayout>
         </ScrollView>
-
     </LinearLayout>
 </layout>

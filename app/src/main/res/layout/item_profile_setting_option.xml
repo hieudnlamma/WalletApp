@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="android.view.View" />
 
         <variable
@@ -55,8 +56,8 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imvOptionImage"
-                android:layout_width="@dimen/_32dp"
-                android:layout_height="@dimen/_32dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:contentDescription="@null"
                 android:scaleType="centerCrop"
                 android:src="@{iconRes}"
@@ -95,11 +96,12 @@
                     android:id="@+id/tvValueOption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2dp"
                     android:fontFamily="@font/sora_semibold"
                     android:includeFontPadding="false"
                     android:text="@{optionValue}"
                     android:textColor="@color/neutrals_black"
-                    android:textSize="@dimen/_12sp"
+                    android:textSize="@dimen/_14sp"
                     android:visibility="@{showDetail ? View.GONE : View.VISIBLE}"
                     tools:text="@string/abdullah_ghatasheh"
                     tools:visibility="visible" />
@@ -125,6 +127,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sora_regular"
                 android:includeFontPadding="false"
+                android:padding="@dimen/_8dp"
                 android:text="@string/edit"
                 android:textColor="@color/hues_blue_celtic_blue"
                 android:textSize="@dimen/_12sp"

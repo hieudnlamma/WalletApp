@@ -27,7 +27,7 @@
         <activity
             android:name=".presenter.login.LoginActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".presenter.login.feature.EnterPasswordActivity"
             android:exported="false"

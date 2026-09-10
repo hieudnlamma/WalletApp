@@ -2,9 +2,10 @@ package com.lmt.global.base.presenter.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.ViewGroup
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updatePadding
+import androidx.core.view.updateLayoutParams
 import com.lmt.global.base.R
 import com.lmt.global.base.common.CommonViewModel
 import com.lmt.global.base.common.IActivity
@@ -18,7 +19,6 @@ class LoginActivity : IActivity<ActivityLoginBinding, CommonViewModel>() {
     override fun provideLayout() = R.layout.activity_login
     override fun initViews(savedInstanceState: Bundle?) {
         setupInsets()
-        setupKeyboardScroll()
     }
 
     override fun initListeners() {
@@ -32,42 +32,13 @@ class LoginActivity : IActivity<ActivityLoginBinding, CommonViewModel>() {
     }
 
     private fun setupInsets() {
-        val toolbarPaddingTop = viewBinding.toolbar.paddingTop
-        val scrollPaddingBottom = viewBinding.loginScrollView.paddingBottom
-
         ViewCompat.setOnApplyWindowInsetsListener(viewBinding.root) { _, insets ->
             val statusBar = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
-            val navigationBar = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom
-            val ime = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom
-
-            viewBinding.toolbar.updatePadding(top = toolbarPaddingTop + statusBar)
-            viewBinding.loginScrollView.updatePadding(
-                bottom = scrollPaddingBottom + maxOf(ime, navigationBar)
-            )
-
-            if (ime > 0 && viewBinding.edtMobileNumber.hasFocus()) {
-                scrollMobileInputAboveKeyboard()
+            viewBinding.toolbar.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                topMargin = statusBar
             }
-
             insets
         }
         ViewCompat.requestApplyInsets(viewBinding.root)
-    }
-
-    private fun setupKeyboardScroll() {
-        viewBinding.edtMobileNumber.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                scrollMobileInputAboveKeyboard()
-            }
-        }
-    }
-
-    private fun scrollMobileInputAboveKeyboard() {
-        viewBinding.loginScrollView.post {
-            val targetBottom = viewBinding.mobileInputContainer.bottom
-            val visibleBottom = viewBinding.loginScrollView.height - viewBinding.loginScrollView.paddingBottom
-            val scrollY = (targetBottom - visibleBottom).coerceAtLeast(0)
-            viewBinding.loginScrollView.smoothScrollTo(0, scrollY)
-        }
     }
 }
