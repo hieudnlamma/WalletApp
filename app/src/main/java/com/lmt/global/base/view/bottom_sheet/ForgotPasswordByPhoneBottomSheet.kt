@@ -14,7 +14,7 @@ class ForgotPasswordByPhoneBottomSheet :
     ) {
     override fun provideLayout(): Int = R.layout.bottom_sheet_forgot_password_by_phone
 
-    private var onSendResetLinkClick: ((countryCode: String, mobileNumber: String) -> Unit)? = null
+    private var onSendResetLinkClick: ((phoneNumber: String) -> Unit)? = null
     private var onUseEmailInsteadClick: (() -> Unit)? = null
 
     override fun initViews() = Unit
@@ -24,10 +24,18 @@ class ForgotPasswordByPhoneBottomSheet :
             dismiss()
         }
         binding.btnSendResetLink.onDebounceClick {
-            onSendResetLinkClick?.invoke(
-                binding.tvCountryCode.text.toString(),
-                binding.edtMobileNumber.text.toString().trim(),
-            )
+            val phoneNumber = binding.mobileInputContainer.phoneNumberOrNull
+            if (phoneNumber == null) {
+                binding.mobileInputContainer.showValidationError(
+                    getString(
+                        R.string.invalid_phone_number,
+                        binding.mobileInputContainer.selectedCountryName,
+                    )
+                )
+                return@onDebounceClick
+            }
+
+            onSendResetLinkClick?.invoke(phoneNumber)
             dismiss()
         }
         binding.tvUseEmailInstead.onDebounceClick {
@@ -37,7 +45,7 @@ class ForgotPasswordByPhoneBottomSheet :
     }
 
     fun setOnSendResetLinkClick(
-        callback: (countryCode: String, mobileNumber: String) -> Unit
+        callback: (phoneNumber: String) -> Unit
     ): ForgotPasswordByPhoneBottomSheet {
         onSendResetLinkClick = callback
         return this

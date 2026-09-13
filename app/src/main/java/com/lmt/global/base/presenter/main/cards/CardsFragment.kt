@@ -4,7 +4,8 @@ import android.content.Intent
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lmt.global.base.R
 import com.lmt.global.base.common.IFragment
-import com.lmt.global.base.databinding.ActivityCardsBinding
+import com.lmt.global.base.databinding.FragmentCardsBinding
+import com.lmt.global.base.extension.applyStatusBarMargin
 import com.lmt.global.base.extension.applyStatusBarPadding
 import com.lmt.global.base.model.PaymentCard
 import com.lmt.global.base.presenter.main.cards.adapter.CardsAdapter
@@ -12,7 +13,7 @@ import com.lmt.global.base.presenter.main.cards.adapter.OverlapCardDecoration
 import com.lmt.global.base.presenter.main.cards.feature.DetailCardPaymentActivity
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
-class CardsActivity : IFragment<ActivityCardsBinding, CardsViewModel>() {
+class CardsFragment : IFragment<FragmentCardsBinding, CardsViewModel>() {
     private val cardsAdapter by lazy {
         CardsAdapter {
             startActivity(Intent(requireContext(), DetailCardPaymentActivity::class.java))
@@ -20,10 +21,10 @@ class CardsActivity : IFragment<ActivityCardsBinding, CardsViewModel>() {
     }
 
     override fun provideViewModel() = activityViewModel<CardsViewModel>()
-    override fun provideLayout() = R.layout.activity_cards
+    override fun provideLayout() = R.layout.fragment_cards
 
     override fun initViews() {
-        viewBinding.toolbar.applyStatusBarPadding()
+        viewBinding.toolbar.applyStatusBarMargin()
 
         viewBinding.layoutCards.apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -73,6 +74,6 @@ class CardsActivity : IFragment<ActivityCardsBinding, CardsViewModel>() {
     }
 
     companion object {
-        fun newInstance() = CardsActivity()
+        fun newInstance() = CardsFragment()
     }
 }

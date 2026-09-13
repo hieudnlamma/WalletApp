@@ -2,7 +2,8 @@ package com.lmt.global.base.presenter.main.history
 
 import com.lmt.global.base.R
 import com.lmt.global.base.common.IFragment
-import com.lmt.global.base.databinding.ActivityHistoryBinding
+import com.lmt.global.base.databinding.FragmentHistoryBinding
+import com.lmt.global.base.extension.applyStatusBarMargin
 import com.lmt.global.base.extension.applyStatusBarPadding
 import com.lmt.global.base.model.Transaction
 import com.lmt.global.base.presenter.main.history.adapter.ContainerHistoryTransactionAdapter
@@ -11,14 +12,14 @@ import com.lmt.global.base.view.bottom_sheet.DetailItemHistoryBottomSheet
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import java.math.BigDecimal
 
-class HistoryActivity : IFragment<ActivityHistoryBinding, HistoryViewModel>() {
+class HistoryFragment : IFragment<FragmentHistoryBinding, HistoryViewModel>() {
     private val historyAdapter = ContainerHistoryTransactionAdapter(::onTransactionClick)
 
     override fun provideViewModel() = activityViewModel<HistoryViewModel>()
-    override fun provideLayout() = R.layout.activity_history
+    override fun provideLayout() = R.layout.fragment_history
 
     override fun initViews() {
-        viewBinding.toolbar.applyStatusBarPadding()
+        viewBinding.toolbar.applyStatusBarMargin()
         setupTransactionHistory()
     }
 
@@ -73,6 +74,6 @@ class HistoryActivity : IFragment<ActivityHistoryBinding, HistoryViewModel>() {
     }
 
     companion object {
-        fun newInstance() = HistoryActivity()
+        fun newInstance() = HistoryFragment()
     }
 }

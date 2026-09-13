@@ -1,6 +1,16 @@
 <resources>
     <string name="app_name">Dev AppName</string>
     <string name="mobile_number">Mobile number</string>
+    <string name="enter_your_mobile_number">Enter your mobile number</string>
+    <string name="invalid_phone_number">Enter a valid phone number for %1$s</string>
+    <string name="user_not_registered">This phone number is not registered. Please create a new account.</string>
+    <string name="unable_to_check_user">Unable to check this account. Please try again.</string>
+    <string name="account_created">Your account has been created.</string>
+    <string name="invalid_name">Enter your name.</string>
+    <string name="invalid_email">Enter a valid email address.</string>
+    <string name="invalid_password">Password must contain at least 8 characters.</string>
+    <string name="accept_terms_required">Accept the terms and privacy policy to continue.</string>
+    <string name="sms_sent_to_mobile_number">An SMS was sent to your mobile number\n%1$s</string>
     <string name="or_continue_using">or continue using</string>
     <string name="enter_your_password">Enter your password</string>
     <string name="password">Password</string>
@@ -102,6 +112,7 @@
     <string name="transfer_to">Transfer to</string>
     <string name="new_contact">New contact</string>
     <string name="search_contact">Search contact</string>
+    <string name="search_country">Search country or code</string>
     <string name="frequent_contacts">Frequent contacts</string>
     <string name="ali_ahmed">Ali Ahmed</string>
     <string name="_1_300_555_0161">+1-300-555-0161</string>
@@ -111,4 +122,14 @@
     <string name="enter_positive_amount">Enter an amount greater than zero</string>
     <string name="transfer_failed">Transfer Failed :(</string>
     <string name="your_transfer_has_been_declined_due_to_a_technical_issue">Your transfer has been declined \ndue to a technical issue</string>
+    <string name="email_or_mobile_number">Email or Mobile number</string>
+    <string name="enter_your_email_or_mobile_number">Enter your email or mobile number</string>
+    <string name="new_password">New password</string>
+    <string name="enter_new_password">Enter new password</string>
+    <string name="confirm_new_password">Confirm new password</string>
+    <string name="enter_confirm_new_password">Enter confirm new password</string>
+    <string name="enter_your_new_password">Enter your new password</string>
+    <string name="verification_code_sent_to">We sent a verification code to \n%1$s</string>
+    <string name="passwords_do_not_match">Passwords do not match.</string>
+    <string name="password_changed_successfully">Password changed successfully!</string>
 </resources>

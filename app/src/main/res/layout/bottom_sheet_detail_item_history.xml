@@ -189,7 +189,7 @@
             android:drawableStart="@drawable/icn_red_flag"
             android:drawablePadding="@dimen/_2dp"
             android:fontFamily="@font/sora_semibold"
-            android:gravity="center"
+            android:layout_gravity="center_horizontal"
             android:includeFontPadding="false"
             android:text="@string/report_a_problem"
             android:textColor="@color/hues_red_golden_gate_bridge"

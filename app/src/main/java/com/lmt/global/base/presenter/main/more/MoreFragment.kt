@@ -3,7 +3,8 @@ package com.lmt.global.base.presenter.main.more
 import android.content.Intent
 import com.lmt.global.base.R
 import com.lmt.global.base.common.IFragment
-import com.lmt.global.base.databinding.ActivityMoreBinding
+import com.lmt.global.base.databinding.FragmentMoreBinding
+import com.lmt.global.base.extension.applyStatusBarMargin
 import com.lmt.global.base.extension.applyStatusBarPadding
 import com.lmt.global.base.extension.onDebounceClick
 import com.lmt.global.base.presenter.main.more.feature.AboutEwalletActivity
@@ -11,12 +12,12 @@ import com.lmt.global.base.presenter.main.more.feature.PayBillsActivity
 import com.lmt.global.base.presenter.main.more.feature.TransferActivity
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
-class MoreActivity : IFragment<ActivityMoreBinding, MoreViewModel>() {
+class MoreFragment : IFragment<FragmentMoreBinding, MoreViewModel>() {
     override fun provideViewModel() = activityViewModel<MoreViewModel>()
-    override fun provideLayout() = R.layout.activity_more
+    override fun provideLayout() = R.layout.fragment_more
 
     override fun initViews () = with(viewBinding) {
-        toolbar.applyStatusBarPadding()
+        toolbar.applyStatusBarMargin()
 
         onPayBillsClicked = onDebounceClick {
             onPayBillsClick()
@@ -52,7 +53,7 @@ class MoreActivity : IFragment<ActivityMoreBinding, MoreViewModel>() {
     }
 
     companion object {
-        fun newInstance() = MoreActivity()
+        fun newInstance() = MoreFragment()
     }
 
     private fun onPayBillsClick() {

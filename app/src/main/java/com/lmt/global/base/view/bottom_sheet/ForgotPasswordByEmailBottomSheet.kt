@@ -1,10 +1,12 @@
 package com.lmt.global.base.view.bottom_sheet
 
+import android.util.Patterns
 import androidx.databinding.DataBindingUtil
 import com.lmt.global.base.R
 import com.lmt.global.base.common.IBottomSheetDialogFragment
 import com.lmt.global.base.databinding.BottomSheetForgotPasswordByEmailBinding
 import com.lmt.global.base.extension.onDebounceClick
+import com.lmt.global.base.extension.showTemporaryError
 
 class ForgotPasswordByEmailBottomSheet :
     IBottomSheetDialogFragment<BottomSheetForgotPasswordByEmailBinding>(
@@ -24,7 +26,13 @@ class ForgotPasswordByEmailBottomSheet :
             dismiss()
         }
         binding.btnSendResetLink.onDebounceClick {
-            onSendResetLinkClick?.invoke(binding.edtEmail.text.toString().trim())
+            val email = binding.edtEmail.text.toString().trim()
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                binding.edtEmail.showTemporaryError(getString(R.string.invalid_email))
+                return@onDebounceClick
+            }
+
+            onSendResetLinkClick?.invoke(email)
             dismiss()
         }
         binding.tvUseMobileInstead.onDebounceClick {

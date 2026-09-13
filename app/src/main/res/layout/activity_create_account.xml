@@ -109,9 +109,26 @@
                     android:textColorHint="@color/neutrals_silver_sand"
                     android:textSize="14sp" />
 
+                <TextView
+                    android:id="@+id/tvMobileNumberLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_24dp"
+                    android:fontFamily="@font/sora_regular"
+                    android:includeFontPadding="false"
+                    android:text="@string/mobile_number"
+                    android:textColor="@color/neutrals_black"
+                    android:textSize="12sp" />
+
+                <com.lmt.global.base.view.custom.PhoneNumberInputView
+                    android:id="@+id/mobileInputContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="4dp" />
+
                 <!-- Email -->
                 <TextView
-                    android:id="@+id/tvEmailLabel"
+                    android:id="@+id/tvEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_24dp"

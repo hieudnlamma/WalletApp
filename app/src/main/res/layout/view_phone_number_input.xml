@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/phoneInputContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_wallet_input"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingEnd="@dimen/_12dp">
+
+        <LinearLayout
+            android:id="@+id/countrySelector"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/_12dp"
+            android:paddingVertical="@dimen/_8dp">
+
+            <ImageView
+                android:id="@+id/ivCountryFlag"
+                android:layout_width="@dimen/_28dp"
+                android:layout_height="@dimen/_21dp"
+                android:contentDescription="@null"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_jordan_flag" />
+
+            <TextView
+                android:id="@+id/tvCountryCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8dp"
+                android:fontFamily="@font/sora_regular"
+                android:includeFontPadding="false"
+                android:text="+962"
+                android:textColor="@color/neutrals_black"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/ivCountryDropdown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:src="@drawable/icn_arrow_drop_down_line" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/edtPhoneNumber"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:fontFamily="@font/sora_regular"
+            android:hint="@string/mobile_number_hint"
+            android:importantForAutofill="yes"
+            android:inputType="phone"
+            android:paddingStart="8dp"
+            android:paddingEnd="0dp"
+            android:singleLine="true"
+            android:textColor="@color/neutrals_black"
+            android:textColorHint="@color/neutrals_silver_sand"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <com.hbb20.CountryCodePicker
+        android:id="@+id/countryCodePickerLogic"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:ccp_autoFormatNumber="true"
+        app:ccp_defaultNameCode="JO"
+        app:ccp_hintExampleNumber="true"
+        app:ccp_hintExampleNumberType="MOBILE" />
+</FrameLayout>

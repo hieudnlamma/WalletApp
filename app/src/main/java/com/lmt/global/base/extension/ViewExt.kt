@@ -6,6 +6,7 @@ import android.os.SystemClock
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.viewpager2.widget.ViewPager2
+import com.lmt.global.base.R
 
 fun View.beVisible() {
     this.visibility = View.VISIBLE
@@ -92,6 +94,27 @@ fun View.hideKeyboard(): Boolean {
     } catch (ignored: RuntimeException) {
     }
     return false
+}
+
+fun TextView.showTemporaryError(
+    message: CharSequence,
+    durationMillis: Long = 3_000L,
+) {
+    clearTemporaryError()
+    error = message
+
+    val clearErrorCallback = Runnable {
+        error = null
+        setTag(R.id.tag_temporary_error_callback, null)
+    }
+    setTag(R.id.tag_temporary_error_callback, clearErrorCallback)
+    postDelayed(clearErrorCallback, durationMillis)
+}
+
+fun TextView.clearTemporaryError() {
+    (getTag(R.id.tag_temporary_error_callback) as? Runnable)?.let(::removeCallbacks)
+    setTag(R.id.tag_temporary_error_callback, null)
+    error = null
 }
 
 fun RecyclerView.onScrollWithDebounce(

@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.recyclerview.widget.RecyclerView
 import com.lmt.global.base.R
 import com.lmt.global.base.common.IFragment
-import com.lmt.global.base.databinding.ActivityHomeBinding
+import com.lmt.global.base.databinding.FragmentHomeBinding
 import com.lmt.global.base.extension.applyStatusBarPadding
 import com.lmt.global.base.extension.onDebounceClick
 import com.lmt.global.base.model.Transaction
@@ -16,7 +16,7 @@ import com.lmt.global.base.view.bottom_sheet.DetailItemHistoryBottomSheet
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import java.math.BigDecimal
 
-class HomeActivity : IFragment<ActivityHomeBinding, HomeViewModel>() {
+class HomeFragment : IFragment<FragmentHomeBinding, HomeViewModel>() {
     private var recentTransfersView: RecyclerView? = null
     private var latestTransactionsView: RecyclerView? = null
 
@@ -27,7 +27,7 @@ class HomeActivity : IFragment<ActivityHomeBinding, HomeViewModel>() {
     private val latestTransactionsAdapter = LatestTransactionsAdapter(::onLatestTransactionClick)
 
     override fun provideViewModel() = activityViewModel<HomeViewModel>()
-    override fun provideLayout() = R.layout.activity_home
+    override fun provideLayout() = R.layout.fragment_home
 
     override fun initViews() {
         viewBinding.toolbar.applyStatusBarPadding()
@@ -132,6 +132,6 @@ class HomeActivity : IFragment<ActivityHomeBinding, HomeViewModel>() {
     }
 
     companion object {
-        fun newInstance() = HomeActivity()
+        fun newInstance() = HomeFragment()
     }
 }

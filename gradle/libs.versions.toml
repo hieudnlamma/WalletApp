@@ -38,6 +38,8 @@ paging3 = "3.3.2"
 roomKtx = "2.8.4"
 pagingRuntimeKtx = "3.4.1"
 gson = "2.13.2"
+countryCodePicker = "2.7.3"
+libPhoneNumberAndroid = "9.0.34"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -71,6 +73,8 @@ converter-scalars = { module = "com.squareup.retrofit2:converter-scalars", versi
 androidx-paging = { group = "androidx.paging", name = "paging-runtime-ktx", version.ref = "paging3" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "converterGson" }
+country-code-picker = { module = "com.hbb20:ccp", version.ref = "countryCodePicker" }
+libphonenumber-android = { module = "io.michaelrocks:libphonenumber-android", version.ref = "libPhoneNumberAndroid" }
 #Glide
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 glide-transform = { group = "jp.wasabeef", name = "glide-transformations", version.ref = "glideTransform" }

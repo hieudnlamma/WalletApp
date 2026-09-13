@@ -1,4 +1,4 @@
-package com.lmt.global.base.presenter.login.feature
+package com.lmt.global.base.presenter.create_account
 
 import android.content.Intent
 import android.graphics.Color
@@ -6,18 +6,24 @@ import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextPaint
+import android.util.Patterns
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.LinkMovementMethod
 import android.text.method.PasswordTransformationMethod
+import android.text.style.ClickableSpan
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updatePadding
+import androidx.core.view.updateLayoutParams
 import com.lmt.global.base.R
 import com.lmt.global.base.common.CommonViewModel
 import com.lmt.global.base.common.IActivity
 import com.lmt.global.base.databinding.ActivityCreateAccountBinding
+import com.lmt.global.base.extension.TopNotificationType
+import com.lmt.global.base.extension.showTemporaryError
+import com.lmt.global.base.extension.showTopNotification
+import com.lmt.global.base.extension.statusBars
 import com.lmt.global.base.presenter.create_account.feature.InputOptActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -32,7 +38,6 @@ class CreateAccountActivity :
 
     override fun initViews(savedInstanceState: Bundle?) {
         setupInsets()
-        setupKeyboardScroll()
         setupTermsAndPrivacy()
     }
 
@@ -51,93 +56,12 @@ class CreateAccountActivity :
     }
 
     private fun setupInsets() {
-        val toolbarPaddingTop = viewBinding.toolbar.paddingTop
-        val scrollPaddingBottom = viewBinding.createAccountScrollView.paddingBottom
-
-        ViewCompat.setOnApplyWindowInsetsListener(viewBinding.root) { _, insets ->
-
-            val statusBar =
-                insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
-
-            val navigationBar =
-                insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom
-
-            val ime =
-                insets.getInsets(WindowInsetsCompat.Type.ime()).bottom
-
-            viewBinding.toolbar.updatePadding(
-                top = toolbarPaddingTop + statusBar
-            )
-
-            viewBinding.createAccountScrollView.updatePadding(
-                bottom = scrollPaddingBottom + maxOf(ime, navigationBar)
-            )
-
-            if (ime > 0) {
-                getFocusedInput()?.let {
-                    scrollInputAboveKeyboard(it)
-                }
-            }
-
-            insets
-        }
-
-        ViewCompat.requestApplyInsets(viewBinding.root)
-    }
-
-    private fun setupKeyboardScroll() {
-
-        viewBinding.edtName.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                scrollInputAboveKeyboard(viewBinding.edtName)
+        setupApplyWindowInsetListener { insets ->
+            viewBinding.toolbar.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                topMargin = insets.statusBars().top
             }
         }
-
-        viewBinding.edtEmail.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                scrollInputAboveKeyboard(viewBinding.edtEmail)
-            }
-        }
-
-        viewBinding.edtPassword.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                scrollInputAboveKeyboard(viewBinding.passwordInputContainer)
-            }
-        }
-    }
-
-    private fun getFocusedInput(): View? {
-        return when {
-            viewBinding.edtName.hasFocus() ->
-                viewBinding.edtName
-
-            viewBinding.edtEmail.hasFocus() ->
-                viewBinding.edtEmail
-
-            viewBinding.edtPassword.hasFocus() ->
-                viewBinding.passwordInputContainer
-
-            else -> null
-        }
-    }
-
-    private fun scrollInputAboveKeyboard(target: View) {
-        viewBinding.createAccountScrollView.post {
-
-            val targetBottom = target.bottom
-
-            val visibleBottom =
-                viewBinding.createAccountScrollView.height -
-                        viewBinding.createAccountScrollView.paddingBottom
-
-            val scrollY =
-                (targetBottom - visibleBottom).coerceAtLeast(0)
-
-            viewBinding.createAccountScrollView.smoothScrollTo(
-                0,
-                scrollY
-            )
-        }
+        ViewCompat.requestApplyInsets(window.decorView)
     }
 
     private fun togglePasswordVisibility() {
@@ -215,7 +139,7 @@ class CreateAccountActivity :
         val end = start + targetText.length
 
         spannable.setSpan(
-            object : android.text.style.ClickableSpan() {
+            object : ClickableSpan() {
 
                 override fun onClick(widget: View) {
                     onClick()
@@ -257,8 +181,50 @@ class CreateAccountActivity :
         val acceptedTerms =
             viewBinding.cbAcceptTerms.isChecked
 
-        // TODO: validate data
-        // TODO: call ViewModel/API
-        startActivity(Intent(this, InputOptActivity::class.java))
+        val phoneNumber = viewBinding.mobileInputContainer.phoneNumberOrNull
+        when {
+            phoneNumber == null -> {
+                viewBinding.mobileInputContainer.showValidationError(
+                    getString(
+                        R.string.invalid_phone_number,
+                        viewBinding.mobileInputContainer.selectedCountryName,
+                    )
+                )
+            }
+
+            name.isBlank() -> {
+                viewBinding.edtName.showTemporaryError(getString(R.string.invalid_name))
+            }
+
+            !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
+                viewBinding.edtEmail.showTemporaryError(getString(R.string.invalid_email))
+            }
+
+            password.length < MIN_PASSWORD_LENGTH -> {
+                viewBinding.edtPassword.showTemporaryError(getString(R.string.invalid_password))
+            }
+
+            !acceptedTerms -> {
+                showTopNotification(
+                    getString(R.string.accept_terms_required),
+                    TopNotificationType.WARNING,
+                )
+            }
+
+            else -> {
+                startActivity(
+                    Intent(this, InputOptActivity::class.java).apply {
+                        putExtra(InputOptActivity.EXTRA_FLOW, InputOptActivity.FLOW_CREATE_ACCOUNT)
+                        putExtra(InputOptActivity.EXTRA_PHONE_NUMBER, phoneNumber)
+                        putExtra(InputOptActivity.EXTRA_FULL_NAME, name)
+                        putExtra(InputOptActivity.EXTRA_EMAIL, email)
+                    }
+                )
+            }
+        }
+    }
+
+    companion object {
+        private const val MIN_PASSWORD_LENGTH = 8
     }
 }

@@ -60,10 +60,10 @@
                 android:fontFamily="@font/sora_semibold"
                 android:includeFontPadding="false"
                 android:lineSpacingMultiplier="1.15"
-                android:text="Enter your mobile number"
+                android:text="@string/enter_your_mobile_number"
                 android:textColor="@color/neutrals_black"
                 android:textSize="@dimen/_21sp"
-                tools:ignore="HardcodedText" />
+                />
 
             <TextView
                 android:id="@+id/tvMobileNumberLabel"
@@ -72,67 +72,15 @@
                 android:layout_marginTop="@dimen/_24dp"
                 android:fontFamily="@font/sora_regular"
                 android:includeFontPadding="false"
-                android:lineSpacingMultiplier="1.5"
                 android:text="@string/mobile_number"
                 android:textColor="@color/neutrals_black"
-                android:textSize="12sp"
-                tools:ignore="HardcodedText" />
+                android:textSize="12sp" />
 
-            <LinearLayout
+            <com.lmt.global.base.view.custom.PhoneNumberInputView
                 android:id="@+id/mobileInputContainer"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/bg_wallet_input"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="12dp">
-
-                <ImageView
-                    android:id="@+id/viewJordanFlag"
-                    android:layout_width="28dp"
-                    android:layout_height="21dp"
-                    android:contentDescription="@null"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/img_jordan_flag" />
-
-                <TextView
-                    android:id="@+id/tvCountryCode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_8dp"
-                    android:fontFamily="@font/sora_regular"
-                    android:includeFontPadding="false"
-                    android:text="+962"
-                    android:textColor="@color/neutrals_black"
-                    android:textSize="14sp"
-                    tools:ignore="HardcodedText" />
-
-                <ImageView
-                    android:id="@+id/ivCountryDropdown"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@null"
-                    android:src="@drawable/icn_arrow_drop_down_line" />
-
-                <EditText
-                    android:id="@+id/edtMobileNumber"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:fontFamily="@font/sora_regular"
-                    android:hint="7X-XXXXXXX"
-                    android:importantForAutofill="yes"
-                    android:inputType="phone"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="0dp"
-                    android:singleLine="true"
-                    android:textColor="@color/neutrals_black"
-                    android:textColorHint="@color/neutrals_silver_sand"
-                    android:textSize="14sp"
-                    tools:ignore="HardcodedText" />
-            </LinearLayout>
+                android:layout_marginTop="4dp" />
 
             <TextView
                 android:id="@+id/tvCreateAccount"
@@ -237,7 +185,6 @@
                     android:src="@drawable/icn_apple" />
             </LinearLayout>
         </LinearLayout>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

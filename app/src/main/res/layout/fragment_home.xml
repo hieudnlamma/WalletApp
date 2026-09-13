@@ -16,6 +16,7 @@
             style="@style/ToolbarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="@dimen/_8dp"
             android:background="@color/hues_purple_indigo"
             app:titleTextAppearance="@style/MainToolbar.TitleTextAppearance"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -117,7 +118,7 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <include
-                layout="@layout/fragment_list_recent_transfers"
+                layout="@layout/layout_list_recent_transfers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:elevation="8dp" />
@@ -133,7 +134,7 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <include
-                layout="@layout/fragment_list_latest_transactions"
+                layout="@layout/layout_list_latest_transactions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:elevation="8dp" />

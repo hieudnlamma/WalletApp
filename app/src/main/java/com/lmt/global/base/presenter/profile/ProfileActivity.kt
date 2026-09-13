@@ -2,6 +2,7 @@ package com.lmt.global.base.presenter.profile
 
 import android.os.Bundle
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import androidx.core.view.updateLayoutParams
 import com.lmt.global.base.R
 import com.lmt.global.base.common.IActivity
@@ -23,6 +24,7 @@ class ProfileActivity : IActivity<ActivityProfileBinding, ProfileViewModel>() {
                 topMargin = insets.statusBars().top
             }
         }
+        ViewCompat.requestApplyInsets(window.decorView)
     }
 
     override fun initListeners() {

@@ -3,21 +3,20 @@ package com.lmt.global.base.presenter.main
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.lmt.global.base.presenter.main.cards.CardsActivity
-import com.lmt.global.base.presenter.main.history.HistoryActivity
-import com.lmt.global.base.presenter.main.home.HomeActivity
-import com.lmt.global.base.presenter.main.more.MoreActivity
+import com.lmt.global.base.presenter.main.cards.CardsFragment
+import com.lmt.global.base.presenter.main.history.HistoryFragment
+import com.lmt.global.base.presenter.main.home.HomeFragment
+import com.lmt.global.base.presenter.main.more.MoreFragment
 
 class MainPagerAdapter(activity: FragmentActivity) : FragmentStateAdapter(activity) {
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            HOME -> HomeActivity.newInstance()
-            HISTORY -> HistoryActivity.newInstance()
-            CARDS -> CardsActivity.newInstance()
-            MORE -> MoreActivity.newInstance()
-            else -> HomeActivity.newInstance()
+            HOME -> HomeFragment.newInstance()
+            HISTORY -> HistoryFragment.newInstance()
+            CARDS -> CardsFragment.newInstance()
+            MORE -> MoreFragment.newInstance()
+            else -> HomeFragment.newInstance()
         }
-
     }
 
     override fun getItemCount(): Int = TAB_COUNT

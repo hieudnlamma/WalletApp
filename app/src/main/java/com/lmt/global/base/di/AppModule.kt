@@ -13,13 +13,19 @@ import com.lmt.global.base.presenter.main.history.HistoryViewModel
 import com.lmt.global.base.presenter.main.home.HomeViewModel
 import com.lmt.global.base.presenter.main.more.MoreViewModel
 import com.lmt.global.base.presenter.profile.ProfileViewModel
-import com.lmt.global.base.data.AppDatabase
 import com.lmt.global.base.helper.firebase.RemoteConfigManagement
 import com.lmt.global.base.helper.permission.IPermission
 import com.lmt.global.base.helper.permission.PermissionImpl
 import com.lmt.global.base.helper.preferences.AppSharedPreferences
 import com.google.firebase.Firebase
 import com.google.firebase.remoteconfig.remoteConfig
+import com.lmt.global.base.data.AppDatabase
+import com.lmt.global.base.data.DatabaseMigrations
+import com.lmt.global.base.data.WalletRepository
+import com.lmt.global.base.data.repository.user.UserRepository
+import com.lmt.global.base.data.repository.user.UserRepositoryImpl
+import com.lmt.global.base.presenter.create_account.feature.InputOtpViewModel
+import com.lmt.global.base.presenter.login.LoginViewModel
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModelOf
@@ -62,9 +68,16 @@ private fun databaseFeature() = object : Feature {
     override fun diModule() = module {
         single {
             Room.databaseBuilder(get(), AppDatabase::class.java, AppDatabase.DATABASE_NAME)
-                .fallbackToDestructiveMigration()
+                .addMigrations(
+                    DatabaseMigrations.MIGRATION_2_3,
+                    DatabaseMigrations.MIGRATION_3_4,
+                )
                 .build()
         }
+        single { get<AppDatabase>().walletDao() }
+        single { get<AppDatabase>().userDao() }
+        single { WalletRepository(get()) }
+        single<UserRepository> { UserRepositoryImpl(get()) }
     }
 }
 
@@ -72,6 +85,8 @@ private fun viewModels() = object : Feature {
     override fun name() = "viewmodel"
     override fun diModule() = module {
         viewModelOf(::CommonViewModel)
+        viewModelOf(::LoginViewModel)
+        viewModelOf(::InputOtpViewModel)
         viewModelOf(::MainViewModel)
         viewModelOf(::HomeViewModel)
         viewModelOf(::HistoryViewModel)

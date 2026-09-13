@@ -2,8 +2,10 @@ package com.lmt.global.base.presenter.login.feature
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.ViewGroup
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import com.lmt.global.base.R
 import com.lmt.global.base.common.CommonViewModel
@@ -11,6 +13,8 @@ import com.lmt.global.base.common.IActivity
 import com.lmt.global.base.databinding.ActivityEnterPasswordBinding
 import com.lmt.global.base.extension.onDebounceClick
 import com.lmt.global.base.extension.startActivity
+import com.lmt.global.base.extension.statusBars
+import com.lmt.global.base.presenter.create_account.feature.InputOptActivity
 import com.lmt.global.base.presenter.main.MainActivity
 import com.lmt.global.base.view.bottom_sheet.ForgotPasswordByEmailBottomSheet
 import com.lmt.global.base.view.bottom_sheet.ForgotPasswordByPhoneBottomSheet
@@ -22,7 +26,6 @@ class EnterPasswordActivity : IActivity<ActivityEnterPasswordBinding, CommonView
 
     override fun initViews(savedInstanceState: Bundle?) {
         setupInsets()
-        setupKeyboardScroll()
     }
 
     override fun initListeners() {
@@ -38,51 +41,19 @@ class EnterPasswordActivity : IActivity<ActivityEnterPasswordBinding, CommonView
     }
 
     private fun setupInsets() {
-        val toolbarPaddingTop = viewBinding.toolbar.paddingTop
-        val scrollPaddingBottom = viewBinding.passwordScrollView.paddingBottom
-
-        ViewCompat.setOnApplyWindowInsetsListener(viewBinding.root) { _, insets ->
-            val statusBar = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
-            val navigationBar = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom
-            val ime = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom
-
-            viewBinding.toolbar.updatePadding(top = toolbarPaddingTop + statusBar)
-            viewBinding.passwordScrollView.updatePadding(
-                bottom = scrollPaddingBottom + maxOf(ime, navigationBar)
-            )
-
-            if (ime > 0 && viewBinding.edtPassword.hasFocus()) {
-                scrollPasswordInputAboveKeyboard()
-            }
-
-            insets
-        }
-        ViewCompat.requestApplyInsets(viewBinding.root)
-    }
-
-    private fun setupKeyboardScroll() {
-        viewBinding.edtPassword.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                scrollPasswordInputAboveKeyboard()
+        setupApplyWindowInsetListener { insets ->
+            viewBinding.toolbar.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                topMargin = insets.statusBars().top
             }
         }
-    }
-
-    private fun scrollPasswordInputAboveKeyboard() {
-        viewBinding.passwordScrollView.post {
-            val targetBottom = viewBinding.passwordInputContainer.bottom
-            val visibleBottom =
-                viewBinding.passwordScrollView.height - viewBinding.passwordScrollView.paddingBottom
-            val scrollY = (targetBottom - visibleBottom).coerceAtLeast(0)
-            viewBinding.passwordScrollView.smoothScrollTo(0, scrollY)
-        }
+        ViewCompat.requestApplyInsets(window.decorView)
     }
 
     private fun showForgotPasswordByEmailBottomSheet() {
         ForgotPasswordByEmailBottomSheet
             .newInstance()
             .setOnSendResetLinkClick { email ->
-                handleForgotPasswordByEmail(email)
+                openForgotPasswordOtp(email = email)
             }
             .setOnUseMobileInsteadClick {
                 showForgotPasswordByPhoneBottomSheet()
@@ -93,8 +64,8 @@ class EnterPasswordActivity : IActivity<ActivityEnterPasswordBinding, CommonView
     private fun showForgotPasswordByPhoneBottomSheet() {
         ForgotPasswordByPhoneBottomSheet
             .newInstance()
-            .setOnSendResetLinkClick { countryCode, mobileNumber ->
-                handleForgotPasswordByPhone(countryCode, mobileNumber)
+            .setOnSendResetLinkClick { phoneNumber ->
+                openForgotPasswordOtp(phoneNumber = phoneNumber)
             }
             .setOnUseEmailInsteadClick {
                 showForgotPasswordByEmailBottomSheet()
@@ -102,7 +73,20 @@ class EnterPasswordActivity : IActivity<ActivityEnterPasswordBinding, CommonView
             .show(supportFragmentManager)
     }
 
-    private fun handleForgotPasswordByEmail(email: String) = Unit
+    private fun openForgotPasswordOtp(
+        email: String? = null,
+        phoneNumber: String? = null,
+    ) {
+        startActivity(
+            Intent(this, InputOptActivity::class.java).apply {
+                putExtra(InputOptActivity.EXTRA_FLOW, InputOptActivity.FLOW_FORGOT_PASSWORD)
+                email?.let { putExtra(InputOptActivity.EXTRA_EMAIL, it) }
+                phoneNumber?.let { putExtra(InputOptActivity.EXTRA_PHONE_NUMBER, it) }
+            }
+        )
+    }
 
-    private fun handleForgotPasswordByPhone(countryCode: String, mobileNumber: String) = Unit
+    companion object {
+        const val EXTRA_PHONE_NUMBER = "extra_phone_number"
+    }
 }

@@ -129,6 +129,8 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.converter.scalars)
     implementation(libs.gson)
+    implementation(libs.country.code.picker)
+    implementation(libs.libphonenumber.android)
     // Others
     implementation(libs.permissions.dispatcher)
     implementation(libs.threetenabp)
