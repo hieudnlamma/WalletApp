@@ -21,6 +21,9 @@
             android:layout_height="wrap_content"
             android:paddingVertical="@dimen/_12dp"
             android:paddingHorizontal="@dimen/_16dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -86,6 +89,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:paddingHorizontal="@dimen/_16dp"
             android:visibility="@{isLastItem ? View.GONE : View.VISIBLE}"
             android:background="@color/neutrals_alice_blue"
             app:layout_constraintStart_toStartOf="parent"

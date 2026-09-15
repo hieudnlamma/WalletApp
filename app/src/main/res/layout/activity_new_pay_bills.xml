@@ -41,14 +41,14 @@
         </androidx.appcompat.widget.Toolbar>
 
         <TextView
-            android:id="@+id/tvTransferTo"
+            android:id="@+id/tvPayTo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sora_regular"
             android:layout_marginStart="@dimen/_16dp"
             android:layout_marginTop="@dimen/_12dp"
             android:includeFontPadding="false"
-            android:text="@string/transfer_to"
+            android:text="@string/pay_to"
             android:textColor="@color/black"
             android:textSize="@dimen/_24sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -62,7 +62,7 @@
             android:layout_marginTop="@dimen/_24dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvTransferTo">
+            app:layout_constraintTop_toBottomOf="@id/tvPayTo">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/ivAvatarUser"
@@ -70,7 +70,7 @@
                 android:layout_height="@dimen/_72dp"
                 android:contentDescription="@null"
                 android:scaleType="centerCrop"
-                android:src="@drawable/icn_avatar_default"
+                android:src="@drawable/icn_more_paybills"
                 app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Circle" />
 
             <LinearLayout
@@ -88,18 +88,18 @@
                     android:fontFamily="@font/sora_semibold"
                     android:lineSpacingMultiplier="1.5"
                     android:includeFontPadding="false"
-                    android:text="@string/ali_ahmed"
+                    android:text="@string/electricity"
                     android:textColor="@color/neutrals_black"
                     android:textSize="@dimen/_12sp" />
 
                 <TextView
-                    android:id="@+id/tvPhoneNumber"
+                    android:id="@+id/tvDetail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:lineSpacingMultiplier="1.5"
                     android:fontFamily="@font/sora_regular"
                     android:includeFontPadding="false"
-                    android:text="@string/_1_300_555_0161"
+                    android:text="@string/utility"
                     android:textColor="@color/neutrals_slate_gray"
                     android:textSize="12sp" />
             </LinearLayout>

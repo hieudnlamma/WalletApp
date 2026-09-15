@@ -12,6 +12,8 @@ import com.lmt.global.base.presenter.main.cards.CardsViewModel
 import com.lmt.global.base.presenter.main.history.HistoryViewModel
 import com.lmt.global.base.presenter.main.home.HomeViewModel
 import com.lmt.global.base.presenter.main.more.MoreViewModel
+import com.lmt.global.base.presenter.main.more.feature.paybills.PayBillsViewModel
+import com.lmt.global.base.presenter.main.more.feature.transfer.TransferViewModel
 import com.lmt.global.base.presenter.profile.ProfileViewModel
 import com.lmt.global.base.helper.firebase.RemoteConfigManagement
 import com.lmt.global.base.helper.permission.IPermission
@@ -21,11 +23,13 @@ import com.google.firebase.Firebase
 import com.google.firebase.remoteconfig.remoteConfig
 import com.lmt.global.base.data.AppDatabase
 import com.lmt.global.base.data.DatabaseMigrations
-import com.lmt.global.base.data.WalletRepository
+import com.lmt.global.base.data.repository.wallet.WalletRepository
+import com.lmt.global.base.data.repository.wallet.WalletRepositoryImpl
 import com.lmt.global.base.data.repository.user.UserRepository
 import com.lmt.global.base.data.repository.user.UserRepositoryImpl
 import com.lmt.global.base.presenter.create_account.feature.InputOtpViewModel
 import com.lmt.global.base.presenter.login.LoginViewModel
+import com.lmt.global.base.presenter.payment.PaymentViewModel
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModelOf
@@ -71,12 +75,15 @@ private fun databaseFeature() = object : Feature {
                 .addMigrations(
                     DatabaseMigrations.MIGRATION_2_3,
                     DatabaseMigrations.MIGRATION_3_4,
+                    DatabaseMigrations.MIGRATION_4_5,
+                    DatabaseMigrations.MIGRATION_5_6,
+                    DatabaseMigrations.MIGRATION_6_7,
                 )
                 .build()
         }
         single { get<AppDatabase>().walletDao() }
         single { get<AppDatabase>().userDao() }
-        single { WalletRepository(get()) }
+        single<WalletRepository> { WalletRepositoryImpl(get()) }
         single<UserRepository> { UserRepositoryImpl(get()) }
     }
 }
@@ -92,6 +99,9 @@ private fun viewModels() = object : Feature {
         viewModelOf(::HistoryViewModel)
         viewModelOf(::CardsViewModel)
         viewModelOf(::MoreViewModel)
+        viewModelOf(::PayBillsViewModel)
+        viewModelOf(::TransferViewModel)
         viewModelOf(::ProfileViewModel)
+        viewModelOf(::PaymentViewModel)
     }
 }

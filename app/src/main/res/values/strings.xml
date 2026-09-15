@@ -74,6 +74,10 @@
     <string name="profile_settings">Profile Settings</string>
     <string name="abdullah_ghatasheh">Abdullah Ghatasheh</string>
     <string name="edit">Edit</string>
+    <string name="save">Save</string>
+    <string name="profile_update_failed">Unable to save profile information.</string>
+    <string name="profile_value_required">This value cannot be empty.</string>
+    <string name="joined_since_format">Joined since %1$s</string>
     <string name="full_name">Full name</string>
     <string name="mobile">Mobile</string>
     <string name="change_password">Change password</string>
@@ -120,8 +124,14 @@
     <string name="enter_amount">Enter Amount</string>
     <string name="amount_placeholder">$00.00</string>
     <string name="enter_positive_amount">Enter an amount greater than zero</string>
-    <string name="transfer_failed">Transfer Failed :(</string>
-    <string name="your_transfer_has_been_declined_due_to_a_technical_issue">Your transfer has been declined \ndue to a technical issue</string>
+    <string name="transfer_failed">Transaction Failed :(</string>
+    <string name="your_transfer_has_been_declined_due_to_a_technical_issue">Your transaction could not be completed. Please try again.</string>
+    <string name="transfer_done">Transfer done!</string>
+    <string name="transfer_has_been_done_successfully">Your transfer has been completed successfully.</string>
+    <string name="insufficient_balance">Your balance is insufficient for this transaction.</string>
+    <string name="biller">Biller</string>
+    <string name="recipient">Recipient</string>
+    <string name="amount">Amount</string>
     <string name="email_or_mobile_number">Email or Mobile number</string>
     <string name="enter_your_email_or_mobile_number">Enter your email or mobile number</string>
     <string name="new_password">New password</string>
@@ -132,4 +142,5 @@
     <string name="verification_code_sent_to">We sent a verification code to \n%1$s</string>
     <string name="passwords_do_not_match">Passwords do not match.</string>
     <string name="password_changed_successfully">Password changed successfully!</string>
+    <string name="empty_transactions">Empty Transaction</string>
 </resources>

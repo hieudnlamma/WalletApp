@@ -31,7 +31,7 @@ class ContainerHistoryTransactionAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), position == itemCount - 1)
     }
 
     class ViewHolder(
@@ -49,7 +49,11 @@ class ContainerHistoryTransactionAdapter(
             }
         }
 
-        fun bind(group: TransactionHistoryGroup) = with(binding) {
+        fun bind(
+            group: TransactionHistoryGroup,
+            isLastItem: Boolean,
+            ) = with(binding) {
+            this.isLastItem = isLastItem
             tvWeekday.text = group.weekdayLabel
             tvWeekday.isVisible = !group.weekdayLabel.isNullOrBlank()
             tvDatetime.text = group.dateLabel

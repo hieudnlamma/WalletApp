@@ -89,7 +89,6 @@
             android:layout_marginTop="@dimen/_8dp"
             android:fontFamily="@font/sora_semibold"
             android:includeFontPadding="false"
-            android:text="@string/abdullah_ghatasheh"
             android:textColor="@color/neutrals_black"
             android:textSize="@dimen/_14sp"
             tools:text="@string/abdullah_ghatasheh" />
@@ -101,7 +100,6 @@
             android:layout_gravity="center_horizontal"
             android:fontFamily="@font/sora_regular"
             android:includeFontPadding="false"
-            android:text="@string/joined_since"
             android:textColor="@color/neutrals_slate_gray"
             android:textSize="@dimen/_12sp"
             tools:text="@string/joined_since" />
@@ -116,17 +114,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingHorizontal="@dimen/_20dp"
                 android:paddingTop="@dimen/_40dp">
 
                 <include
                     android:id="@+id/itemFullName"
                     layout="@layout/item_profile_setting_option"
                     app:iconRes="@{@drawable/icn_full_name}"
+                    app:isEditing="@{false}"
                     app:isLastItem="@{false}"
                     app:onClicked="@{onFullNameClicked}"
                     app:optionName="@{@string/full_name}"
-                    app:optionValue="@{@string/abdullah_ghatasheh}"
+                    app:optionValue="@{null}"
                     app:showDetail="@{false}"
                     app:showEdit="@{true}" />
 
@@ -134,10 +132,11 @@
                     android:id="@+id/itemMobile"
                     layout="@layout/item_profile_setting_option"
                     app:iconRes="@{@drawable/icn_mobile}"
+                    app:isEditing="@{false}"
                     app:isLastItem="@{false}"
                     app:onClicked="@{onMobileClicked}"
                     app:optionName="@{@string/mobile}"
-                    app:optionValue="@{@string/profile_mobile_default}"
+                    app:optionValue="@{null}"
                     app:showDetail="@{false}"
                     app:showEdit="@{true}" />
 
@@ -145,10 +144,11 @@
                     android:id="@+id/itemEmail"
                     layout="@layout/item_profile_setting_option"
                     app:iconRes="@{@drawable/icn_email}"
+                    app:isEditing="@{false}"
                     app:isLastItem="@{false}"
                     app:onClicked="@{onEmailClicked}"
                     app:optionName="@{@string/email}"
-                    app:optionValue="@{@string/profile_email_default}"
+                    app:optionValue="@{null}"
                     app:showDetail="@{false}"
                     app:showEdit="@{true}" />
 
@@ -156,6 +156,7 @@
                     android:id="@+id/itemChangePassword"
                     layout="@layout/item_profile_setting_option"
                     app:iconRes="@{@drawable/icn_change_password}"
+                    app:isEditing="@{false}"
                     app:isLastItem="@{true}"
                     app:onClicked="@{onChangePasswordClicked}"
                     app:optionName="@{@string/change_password}"

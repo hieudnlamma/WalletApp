@@ -16,11 +16,14 @@
         android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layoutItemContract"
+            android:id="@+id/layoutItemRecipient"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="@dimen/_12dp"
             android:paddingHorizontal="@dimen/_16dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -91,6 +94,6 @@
             android:background="@color/neutrals_alice_blue"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutItemContract"/>
+            app:layout_constraintTop_toBottomOf="@id/layoutItemRecipient"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

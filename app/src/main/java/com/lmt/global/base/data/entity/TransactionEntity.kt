@@ -15,7 +15,7 @@ import androidx.room.PrimaryKey
             onDelete = ForeignKey.SET_NULL
         )
     ],
-    indices = [Index("recipientId"), Index("createdAt")]
+    indices = [Index("recipientId"), Index("createdAt"), Index("userPhoneNumber")]
 )
 data class TransactionEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0L,
@@ -25,10 +25,17 @@ data class TransactionEntity(
     val iconKey: String,
     val billerType: String? = null,
     val amountMinor: Long,
-    val createdAt: Long
+    val createdAt: Long,
+    val currencyCode: String = DEFAULT_CURRENCY_CODE,
+    val dueText: String? = null,
+    val category: String? = null,
+    val dueDate: String? = null,
+    val registrationNumber: String? = null,
+    val userPhoneNumber: String,
 ) {
     companion object {
         const val TYPE_TRANSFER = "TRANSFER"
         const val TYPE_PAY_BILL = "PAY_BILL"
+        const val DEFAULT_CURRENCY_CODE = "USD"
     }
 }

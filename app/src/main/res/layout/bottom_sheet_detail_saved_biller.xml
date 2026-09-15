@@ -169,24 +169,40 @@
 
         </LinearLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSecurePayment"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_btn_bottom_sheet_pay_biller"
-            android:fontFamily="@font/sora_semibold"
-            android:includeFontPadding="false"
-            android:paddingVertical="@dimen/_12dp"
-            android:layout_marginTop="@dimen/_24dp"
-            android:text="@string/secure_payment"
-            android:textAllCaps="false"
-            android:textColor="@color/hues_purple_indigo"
-            android:textSize="@dimen/_14sp"
-            app:backgroundTint="@null"
-            app:icon="@drawable/icn_secure_payment"
-            app:iconGravity="textStart"
-            app:iconPadding="@dimen/_4dp"
-            app:iconTint="@color/hues_purple_indigo"/>
+            android:layout_marginTop="@dimen/_24dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSecurePayment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_btn_bottom_sheet_pay_biller"
+                android:fontFamily="@font/sora_semibold"
+                android:includeFontPadding="false"
+                android:paddingVertical="@dimen/_12dp"
+                android:text="@string/secure_payment"
+                android:textAllCaps="false"
+                android:textColor="@color/hues_purple_indigo"
+                android:textSize="@dimen/_14sp"
+                app:backgroundTint="@null"
+                app:icon="@drawable/icn_secure_payment"
+                app:iconGravity="textStart"
+                app:iconPadding="@dimen/_4dp"
+                app:iconTint="@color/hues_purple_indigo" />
+
+            <ProgressBar
+                android:id="@+id/progressSecurePayment"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="@dimen/_24dp"
+                android:layout_height="@dimen/_24dp"
+                android:layout_gravity="center"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/hues_purple_indigo"
+                android:visibility="gone" />
+
+        </FrameLayout>
 
     </LinearLayout>
 </layout>

@@ -1,20 +1,25 @@
 package com.lmt.global.base.presenter.main.home
 
 import android.content.Intent
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.lmt.global.base.R
 import com.lmt.global.base.common.IFragment
 import com.lmt.global.base.databinding.FragmentHomeBinding
 import com.lmt.global.base.extension.applyStatusBarPadding
+import com.lmt.global.base.extension.collectLatestRepeatOnLifecycle
 import com.lmt.global.base.extension.onDebounceClick
 import com.lmt.global.base.model.Transaction
+import com.lmt.global.base.presenter.main.MainActivity
 import com.lmt.global.base.presenter.main.home.adapter.LatestTransactionsAdapter
 import com.lmt.global.base.presenter.main.home.adapter.RecentTransfer
 import com.lmt.global.base.presenter.main.home.adapter.RecentTransfersAdapter
+import com.lmt.global.base.presenter.main.more.feature.transfer.TransferActivity
 import com.lmt.global.base.presenter.profile.ProfileActivity
 import com.lmt.global.base.view.bottom_sheet.DetailItemHistoryBottomSheet
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
-import java.math.BigDecimal
+import java.text.NumberFormat
+import java.util.Locale
 
 class HomeFragment : IFragment<FragmentHomeBinding, HomeViewModel>() {
     private var recentTransfersView: RecyclerView? = null
@@ -33,88 +38,75 @@ class HomeFragment : IFragment<FragmentHomeBinding, HomeViewModel>() {
         viewBinding.toolbar.applyStatusBarPadding()
         setupRecentTransfers()
         setupLatestTransactions()
+        viewBinding.viewBalance.onTransferClicked = onDebounceClick {
+            openTransfer()
+        }
 
         viewBinding.llProfile.onDebounceClick {
             startActivity(
                 Intent(requireContext(), ProfileActivity::class.java)
             )
         }
+
+        viewBinding.viewLatestTransactions.tvViewAll.onDebounceClick {
+            (requireActivity() as? MainActivity)?.openHistory()
+        }
+
+    }
+
+    override fun initObservers() {
+        collectLatestRepeatOnLifecycle(viewModel.balance) { balanceMinor ->
+            renderBalance(balanceMinor)
+        }
+        collectLatestRepeatOnLifecycle(viewModel.transactions) { transactions ->
+            latestTransactionsAdapter.submitData(transactions)
+        }
+        collectLatestRepeatOnLifecycle(viewModel.user) { user ->
+            viewBinding.tvName.text = user?.fullName.orEmpty()
+        }
+        collectLatestRepeatOnLifecycle(viewModel.recentRecipients) { recipients ->
+            recentTransfersAdapter.submitTransfers(
+                recipients.map { recipient ->
+                    RecentTransfer(
+                        id = recipient.id,
+                        name = recipient.name,
+                        avatarRes = R.drawable.icn_avatar_default,
+                    )
+                }
+            )
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.refreshCurrentUser()
     }
 
     private fun setupRecentTransfers() {
         recentTransfersView = viewBinding.root.findViewById(R.id.rcvListRecentTransfers)
         recentTransfersView?.adapter = recentTransfersAdapter
-        recentTransfersAdapter.submitTransfers(
-            listOf(
-                RecentTransfer(
-                    id = 1L,
-                    name = getString(R.string.ali),
-                    avatarRes = R.drawable.icn_avatar_default,
-                ),
-                RecentTransfer(
-                    id = 2L,
-                    name = getString(R.string.ali),
-                    avatarRes = R.drawable.icn_avatar_default,
-                ),
-                RecentTransfer(
-                    id = 3L,
-                    name = getString(R.string.ali),
-                    avatarRes = R.drawable.icn_avatar_default,
-                ),
-                RecentTransfer(
-                    id = 4L,
-                    name = getString(R.string.ali),
-                    avatarRes = R.drawable.icn_avatar_default,
-                ),
-                RecentTransfer(
-                    id = 5L,
-                    name = getString(R.string.ali),
-                    avatarRes = R.drawable.icn_avatar_default,
-                ),
-                RecentTransfer(
-                    id = 6L,
-                    name = getString(R.string.ali),
-                    avatarRes = R.drawable.icn_avatar_default,
-                ),
-            ),
-        )
+        recentTransfersAdapter.submitTransfers(emptyList())
     }
 
-    private fun onAddRecentTransfer() = Unit
+    private fun onAddRecentTransfer() = openTransfer()
 
     private fun onRecentTransferClick(transfer: RecentTransfer) = Unit
+
+    private fun openTransfer() {
+        startActivity(Intent(requireContext(), TransferActivity::class.java))
+    }
 
     private fun setupLatestTransactions() {
         latestTransactionsView = viewBinding.root.findViewById(R.id.rcvListLatestTransactions)
         latestTransactionsView?.adapter = latestTransactionsAdapter
-        latestTransactionsAdapter.submitList(
-            listOf(
-                Transaction(
-                    id = 1L,
-                    merchantName = getString(R.string.walmart),
-                    dateTime = getString(R.string.today_12_32),
-                    amount = BigDecimal("-35.23"),
-                    currencyCode = "USD",
-                    merchantIconRes = R.drawable.img_app_default,
-                ),
-                Transaction(
-                    id = 2L,
-                    merchantName = getString(R.string.walmart),
-                    dateTime = getString(R.string.today_12_32),
-                    amount = BigDecimal("120.00"),
-                    currencyCode = "USD",
-                    merchantIconRes = R.drawable.img_app_default,
-                ),
-                Transaction(
-                    id = 3L,
-                    merchantName = getString(R.string.walmart),
-                    dateTime = getString(R.string.today_12_32),
-                    amount = BigDecimal("-18.50"),
-                    currencyCode = "USD",
-                    merchantIconRes = R.drawable.img_app_default,
-                ),
-            ),
-        )
+    }
+
+    private fun renderBalance(balanceMinor: Long) {
+        val wholeAmount = balanceMinor / 100L
+        val fraction = (balanceMinor % 100L).toString().padStart(2, '0')
+        viewBinding.root.findViewById<TextView>(R.id.tvBalanceWhole).text =
+            "$${NumberFormat.getIntegerInstance(Locale.US).format(wholeAmount)}"
+        viewBinding.root.findViewById<TextView>(R.id.tvBalanceFraction).text = ".$fraction"
     }
 
     private fun onLatestTransactionClick(transaction: Transaction) {

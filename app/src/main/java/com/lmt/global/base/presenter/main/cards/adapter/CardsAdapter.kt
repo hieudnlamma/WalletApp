@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.lmt.global.base.databinding.ItemCardBinding
 import com.lmt.global.base.extension.onDebounceClick
-import com.lmt.global.base.model.PaymentCard
+import com.lmt.global.base.model.Card
 
 class CardsAdapter(
-    private val onCardClick: (PaymentCard) -> Unit = {},
-) : ListAdapter<PaymentCard, CardsAdapter.ViewHolder>(DiffCallback) {
+    private val onCardClick: (Card) -> Unit = {},
+) : ListAdapter<Card, CardsAdapter.ViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemCardBinding.inflate(
@@ -31,7 +31,7 @@ class CardsAdapter(
         private val binding: ItemCardBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(card: PaymentCard, onClick: (PaymentCard) -> Unit) = with(binding) {
+        fun bind(card: Card, onClick: (Card) -> Unit) = with(binding) {
             cardHolder = card.cardHolder
             maskedNumber = card.maskedNumber
             balance = card.balance
@@ -44,12 +44,12 @@ class CardsAdapter(
     }
 
     private companion object {
-        val DiffCallback = object : DiffUtil.ItemCallback<PaymentCard>() {
-            override fun areItemsTheSame(oldItem: PaymentCard, newItem: PaymentCard): Boolean {
+        val DiffCallback = object : DiffUtil.ItemCallback<Card>() {
+            override fun areItemsTheSame(oldItem: Card, newItem: Card): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: PaymentCard, newItem: PaymentCard): Boolean {
+            override fun areContentsTheSame(oldItem: Card, newItem: Card): Boolean {
                 return oldItem == newItem
             }
         }

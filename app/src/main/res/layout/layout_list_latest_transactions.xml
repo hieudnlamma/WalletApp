@@ -6,7 +6,7 @@
     <LinearLayout
         android:id="@+id/layoutListLatestTransactions"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -46,7 +46,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcvListLatestTransactions"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:layout_marginTop="@dimen/_4dp"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

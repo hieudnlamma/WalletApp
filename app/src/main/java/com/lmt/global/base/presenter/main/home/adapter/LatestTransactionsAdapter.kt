@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.paging.PagingDataAdapter
 import com.lmt.global.base.R
 import com.lmt.global.base.databinding.ItemTransactionBinding
 import com.lmt.global.base.extension.onDebounceClick
@@ -16,7 +16,7 @@ import java.util.Locale
 
 class LatestTransactionsAdapter(
     private val onTransactionClick: (Transaction) -> Unit = {},
-) : ListAdapter<Transaction, LatestTransactionsAdapter.ViewHolder>(TransactionDiffCallback) {
+) : PagingDataAdapter<Transaction, LatestTransactionsAdapter.ViewHolder>(TransactionDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -25,7 +25,9 @@ class LatestTransactionsAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position), position == itemCount - 1, onTransactionClick)
+        getItem(position)?.let { item ->
+            holder.bind(item, position == itemCount - 1, onTransactionClick)
+        }
     }
 
     class ViewHolder(

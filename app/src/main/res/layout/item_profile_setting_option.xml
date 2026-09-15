@@ -32,6 +32,10 @@
             type="Boolean" />
 
         <variable
+            name="isEditing"
+            type="Boolean" />
+
+        <variable
             name="onClicked"
             type="View.OnClickListener" />
     </data>
@@ -45,6 +49,7 @@
             android:id="@+id/layoutItemProfileSettingOption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/_20dp"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
@@ -94,7 +99,7 @@
 
                 <TextView
                     android:id="@+id/tvValueOption"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_2dp"
                     android:fontFamily="@font/sora_semibold"
@@ -102,9 +107,26 @@
                     android:text="@{optionValue}"
                     android:textColor="@color/neutrals_black"
                     android:textSize="@dimen/_14sp"
-                    android:visibility="@{showDetail ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{showDetail || isEditing ? View.GONE : View.VISIBLE}"
                     tools:text="@string/abdullah_ghatasheh"
                     tools:visibility="visible" />
+
+                <EditText
+                    android:id="@+id/edtProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40dp"
+                    android:layout_marginTop="4dp"
+                    android:visibility="@{!showDetail &amp;&amp; isEditing ? View.VISIBLE : View.GONE}"
+                    android:background="@drawable/bg_profile_input"
+                    android:fontFamily="@font/sora_semibold"
+                    android:hint="@string/enter_your_name"
+                    android:importantForAutofill="no"
+                    android:inputType="textPersonName"
+                    android:singleLine="true"
+                    android:textColor="@color/neutrals_black"
+                    android:textColorHint="@color/neutrals_silver_sand"
+                    android:textSize="14sp"
+                    tools:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/tvDetailOptionName"
@@ -128,7 +150,7 @@
                 android:fontFamily="@font/sora_regular"
                 android:includeFontPadding="false"
                 android:padding="@dimen/_8dp"
-                android:text="@string/edit"
+                android:text="@{isEditing ? @string/save : @string/edit}"
                 android:textColor="@color/hues_blue_celtic_blue"
                 android:textSize="@dimen/_12sp"
                 android:visibility="@{showEdit ? View.VISIBLE : View.GONE}"
@@ -154,6 +176,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/_1dp"
+            android:paddingHorizontal="@dimen/_20dp"
             android:background="@color/neutrals_alice_blue"
             android:visibility="@{isLastItem ? View.GONE : View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"

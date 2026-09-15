@@ -1,4 +1,4 @@
-package com.lmt.global.base.presenter.main.history
+package com.lmt.global.base.presenter.main.more.feature.paybills
 
 import androidx.lifecycle.viewModelScope
 import com.lmt.global.base.common.IViewModel
@@ -8,22 +8,21 @@ import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 
-class HistoryViewModel(
+class PayBillsViewModel(
     private val walletRepository: WalletRepository,
-) : IViewModel<HistoryState>() {
-    private val userPhoneNumber get() = appSharedPreferences.walletUserId
+) : IViewModel<PayBillsState>() {
 
-    val transactions = flow {
+    val savedBills = flow {
+        val userPhoneNumber = appSharedPreferences.walletUserId
         walletRepository.initializeWallet(userPhoneNumber)
-        emitAll(walletRepository.history(userPhoneNumber))
+        emitAll(walletRepository.savedBills(userPhoneNumber))
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000L),
         initialValue = emptyList(),
     )
 
-    override fun onState(state: HistoryState) = Unit
-
+    override fun onState(state: PayBillsState) = Unit
 }
 
-sealed class HistoryState : IViewModel.IState
+sealed interface PayBillsState : IViewModel.IState

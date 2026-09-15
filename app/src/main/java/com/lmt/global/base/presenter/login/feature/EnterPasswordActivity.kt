@@ -4,9 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.ViewGroup
 import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
-import androidx.core.view.updatePadding
 import com.lmt.global.base.R
 import com.lmt.global.base.common.CommonViewModel
 import com.lmt.global.base.common.IActivity
@@ -30,6 +28,8 @@ class EnterPasswordActivity : IActivity<ActivityEnterPasswordBinding, CommonView
 
     override fun initListeners() {
         viewBinding.btnLogin.onDebounceClick {
+            appSharedPreferences.currentUserPhoneNumber =
+                intent.getStringExtra(EXTRA_PHONE_NUMBER).orEmpty()
             startActivity<MainActivity> {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             }

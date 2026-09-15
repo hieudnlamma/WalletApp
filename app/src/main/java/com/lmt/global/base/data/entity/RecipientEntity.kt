@@ -12,6 +12,7 @@ data class RecipientEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0L,
     val name: String,
     val normalizedName: String,
+    val phoneNumber: String,
     val avatarKey: String,
     val lastTransferAt: Long
 )

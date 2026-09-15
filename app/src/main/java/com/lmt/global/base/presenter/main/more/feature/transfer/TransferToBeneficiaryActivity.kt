@@ -1,8 +1,10 @@
-package com.lmt.global.base.presenter.main.more.feature
+package com.lmt.global.base.presenter.main.more.feature.transfer
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -10,17 +12,23 @@ import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import com.lmt.global.base.R
-import com.lmt.global.base.common.CommonViewModel
 import com.lmt.global.base.common.IActivity
 import com.lmt.global.base.databinding.ActivityTransferToBeneficiaryBinding
+import com.lmt.global.base.extension.collectLatestRepeatOnLifecycle
+import com.lmt.global.base.extension.onDebounceClick
+import com.lmt.global.base.presenter.payment.PaymentAction
+import com.lmt.global.base.presenter.payment.PaymentEffect
+import com.lmt.global.base.presenter.payment.PaymentOrTransferFailureActivity
+import com.lmt.global.base.presenter.payment.PaymentOrTransferSuccessActivity
+import com.lmt.global.base.presenter.payment.PaymentViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TransferToBeneficiaryActivity :
-    IActivity<ActivityTransferToBeneficiaryBinding, CommonViewModel>() {
+    IActivity<ActivityTransferToBeneficiaryBinding, PaymentViewModel>() {
 
     private var amountConfirmed = false
 
-    override fun provideViewModel() = viewModel<CommonViewModel>()
+    override fun provideViewModel() = viewModel<PaymentViewModel>()
 
     override fun provideLayout() = R.layout.activity_transfer_to_beneficiary
 
@@ -38,8 +46,41 @@ class TransferToBeneficiaryActivity :
         }
         ViewCompat.requestApplyInsets(viewBinding.root)
         viewBinding.numberKeyboard.setDecimalEnabled(true)
+        viewBinding.tvUserName.text = intent.getStringExtra(EXTRA_RECIPIENT_NAME)
+            ?: getString(R.string.ali_ahmed)
+        viewBinding.tvPhoneNumber.text = intent.getStringExtra(EXTRA_RECIPIENT_PHONE)
+            ?: getString(R.string._1_300_555_0161)
         amountConfirmed = savedInstanceState?.getBoolean(STATE_CONFIRMED) ?: false
         updateAmountState()
+        onBackPressedDispatcher.addCallback(this) {
+            if (!viewModel.isProcessing.value) finish()
+        }
+    }
+
+    override fun initObservers() {
+        super.initObservers()
+        collectLatestRepeatOnLifecycle(viewModel.isProcessing) { isProcessing ->
+            viewBinding.tvBack.isEnabled = !isProcessing
+            viewBinding.edtAmount.isEnabled = !isProcessing
+            viewBinding.btnSecurePayment.isEnabled = !isProcessing
+            viewBinding.progressSecurePayment.isVisible = isProcessing
+            viewBinding.btnSecurePayment.text = if (isProcessing) {
+                ""
+            } else {
+                getString(R.string.secure_payment)
+            }
+            viewBinding.btnSecurePayment.icon = if (isProcessing) {
+                null
+            } else {
+                ContextCompat.getDrawable(
+                    this@TransferToBeneficiaryActivity,
+                    R.drawable.icn_secure_payment,
+                )
+            }
+        }
+        collectLatestRepeatOnLifecycle(viewModel.effects) { effect ->
+            handlePaymentEffect(effect)
+        }
     }
 
     override fun initListeners() {
@@ -68,6 +109,42 @@ class TransferToBeneficiaryActivity :
             amountConfirmed = false
             updateAmountState()
         }
+        viewBinding.btnSecurePayment.onDebounceClick {
+            viewModel.onState(
+                PaymentAction.Transfer(
+                    recipientName = viewBinding.tvUserName.text.toString(),
+                    recipientPhoneNumber = viewBinding.tvPhoneNumber.text.toString(),
+                    amount = viewBinding.edtAmount.getAmount(),
+                )
+            )
+        }
+    }
+
+    private fun handlePaymentEffect(effect: PaymentEffect) {
+        when (effect) {
+            is PaymentEffect.Succeeded -> {
+                startActivity(Intent(this, PaymentOrTransferSuccessActivity::class.java).apply {
+                    putExtra(PaymentOrTransferSuccessActivity.EXTRA_TRANSACTION_ID, effect.transactionId)
+                    putExtra(PaymentOrTransferSuccessActivity.EXTRA_TITLE, effect.title)
+                    putExtra(PaymentOrTransferSuccessActivity.EXTRA_AMOUNT_MINOR, effect.amountMinor)
+                    putExtra(PaymentOrTransferSuccessActivity.EXTRA_TYPE, effect.type)
+                })
+                finish()
+            }
+
+            PaymentEffect.InsufficientBalance -> openFailure(insufficientBalance = true)
+            PaymentEffect.Failed -> openFailure(insufficientBalance = false)
+        }
+    }
+
+    private fun openFailure(insufficientBalance: Boolean) {
+        startActivity(Intent(this, PaymentOrTransferFailureActivity::class.java).apply {
+            putExtra(
+                PaymentOrTransferFailureActivity.EXTRA_INSUFFICIENT_BALANCE,
+                insufficientBalance,
+            )
+        })
+        finish()
     }
 
     private fun updateAmountState() {
@@ -108,7 +185,9 @@ class TransferToBeneficiaryActivity :
         super.onSaveInstanceState(outState)
     }
 
-    private companion object {
-        const val STATE_CONFIRMED = "amount_confirmed"
+    companion object {
+        private const val STATE_CONFIRMED = "amount_confirmed"
+        const val EXTRA_RECIPIENT_NAME = "extra_recipient_name"
+        const val EXTRA_RECIPIENT_PHONE = "extra_recipient_phone"
     }
 }

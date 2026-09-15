@@ -2,6 +2,7 @@ package com.lmt.global.base.extension
 
 import android.content.Context
 import android.view.MotionEvent
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.core.widget.doOnTextChanged
@@ -30,3 +31,16 @@ fun EditText.enableKeyboardOnTouch(context: Context) {
     }
 }
 
+fun EditText.onSearchQueryChanged(onQueryChanged: (String) -> Unit) {
+    doOnTextChanged { text, _, _, _ ->
+        onQueryChanged(text?.toString().orEmpty())
+    }
+    setOnEditorActionListener { _, actionId, _ ->
+        if (actionId != EditorInfo.IME_ACTION_SEARCH) return@setOnEditorActionListener false
+        onQueryChanged(text?.toString().orEmpty())
+        hideKeyboard()
+        clearFocus()
+        true
+    }
+    onQueryChanged(text?.toString().orEmpty())
+}

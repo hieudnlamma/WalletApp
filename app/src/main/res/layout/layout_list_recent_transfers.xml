@@ -26,6 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layoutDirection="ltr"
             android:layout_marginTop="@dimen/_16dp"
             tools:listitem="@layout/item_recent_transfers"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

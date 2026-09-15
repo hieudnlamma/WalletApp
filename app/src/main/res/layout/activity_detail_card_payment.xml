@@ -44,12 +44,6 @@
             android:layout_height="@dimen/_196dp"
             android:layout_marginTop="@dimen/_49dp"
             android:layout_marginHorizontal="@dimen/_16dp"
-            app:cardHolder="@{@string/abdullah_ghatasheh}"
-            app:maskedNumber="@{@string/card_number_back}"
-            app:balance="@{@string/card_balance_sample}"
-            app:cardColor="@{@color/hues_purple_indigo}"
-            app:lightCard="@{false}"
-            app:compactHeader="@{false}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar"/>

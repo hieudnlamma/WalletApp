@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.DrawableRes
 import com.lmt.global.base.R
+import java.text.Normalizer
 import java.util.Locale
 
 internal data class CountryPhoneCode(
@@ -33,14 +34,14 @@ internal class CountryPhoneCodeAdapter(
     override fun getItemId(position: Int) = position.toLong()
 
     fun filter(query: CharSequence?) {
-        val normalizedQuery = query.toString().trim().lowercase(Locale.getDefault())
-        countries = if (normalizedQuery.isEmpty()) {
+        val normalizedQuery = query?.toString().orEmpty().toSearchKey()
+        countries = if (normalizedQuery.isBlank()) {
             allCountries
         } else {
             allCountries.filter { country ->
-                country.countryName.lowercase(Locale.getDefault()).contains(normalizedQuery) ||
-                    country.regionCode.lowercase(Locale.US).contains(normalizedQuery) ||
-                    country.phoneCode.contains(normalizedQuery)
+                country.countryName.toSearchKey().contains(normalizedQuery) ||
+                    country.regionCode.toSearchKey().contains(normalizedQuery) ||
+                    country.phoneCode.toSearchKey().contains(normalizedQuery)
             }
         }
         notifyDataSetChanged()
@@ -69,6 +70,19 @@ internal class CountryPhoneCodeAdapter(
             holder.phoneCode.text = country.phoneCode
         }
         return view
+    }
+
+    private val combiningMarksRegex = "\\p{M}+".toRegex()
+
+    private fun CharSequence.toSearchKey(): String {
+        return Normalizer
+            .normalize(toString(), Normalizer.Form.NFD)
+            .replace(combiningMarksRegex, "")
+            // Đ và đ không bị tách dấu bởi Normalizer nên phải xử lý riêng.
+            .replace('Đ', 'D')
+            .replace('đ', 'd')
+            .lowercase(Locale.ROOT)
+            .trim()
     }
 
     private data class ViewHolder(

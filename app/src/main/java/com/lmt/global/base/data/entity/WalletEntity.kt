@@ -5,10 +5,10 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "wallet")
 data class WalletEntity(
-    @PrimaryKey val id: Int = SINGLE_WALLET_ID,
-    val balanceMinor: Long = 0L
+    @PrimaryKey val userPhoneNumber: String,
+    val balanceMinor: Long = INITIAL_BALANCE_MINOR,
 ) {
     companion object {
-        const val SINGLE_WALLET_ID = 1
+        const val INITIAL_BALANCE_MINOR = 1_423_500L
     }
 }

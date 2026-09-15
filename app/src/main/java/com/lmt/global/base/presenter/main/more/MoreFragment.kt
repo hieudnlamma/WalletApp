@@ -5,11 +5,10 @@ import com.lmt.global.base.R
 import com.lmt.global.base.common.IFragment
 import com.lmt.global.base.databinding.FragmentMoreBinding
 import com.lmt.global.base.extension.applyStatusBarMargin
-import com.lmt.global.base.extension.applyStatusBarPadding
 import com.lmt.global.base.extension.onDebounceClick
 import com.lmt.global.base.presenter.main.more.feature.AboutEwalletActivity
-import com.lmt.global.base.presenter.main.more.feature.PayBillsActivity
-import com.lmt.global.base.presenter.main.more.feature.TransferActivity
+import com.lmt.global.base.presenter.main.more.feature.paybills.PayBillsActivity
+import com.lmt.global.base.presenter.main.more.feature.transfer.TransferActivity
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class MoreFragment : IFragment<FragmentMoreBinding, MoreViewModel>() {

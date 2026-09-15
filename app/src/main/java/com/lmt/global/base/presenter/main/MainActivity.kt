@@ -66,4 +66,11 @@ class MainActivity : IActivity<ActivityMainBinding, MainViewModel>() {
         viewBinding.viewPager.unregisterOnPageChangeCallback(pageChangeCallback)
         super.onDestroy()
     }
+
+    fun openHistory() {
+        viewBinding.viewPager.setCurrentItem(
+            MainPagerAdapter.HISTORY,
+            false,
+        )
+    }
 }
