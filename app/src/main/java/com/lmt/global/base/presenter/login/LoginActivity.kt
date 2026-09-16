@@ -28,7 +28,9 @@ class LoginActivity : IActivity<ActivityLoginBinding, LoginViewModel>() {
 
     override fun initListeners() {
         viewBinding.btnContinue.setOnClickListener {
-            validatedPhoneNumber()?.let(viewModel::checkRegistration)
+            validatedPhoneNumber()?.let{ phoneNumber ->
+                viewModel.checkRegistration(phoneNumber)
+            }
         }
 
         viewBinding.tvCreateAccount.setOnClickListener {

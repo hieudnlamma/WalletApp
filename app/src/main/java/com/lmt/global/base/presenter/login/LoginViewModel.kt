@@ -3,14 +3,23 @@ package com.lmt.global.base.presenter.login
 import com.lmt.global.base.common.IViewModel
 import com.lmt.global.base.data.repository.user.UserRepository
 import com.lmt.global.base.model.User
+import com.lmt.global.base.presenter.login.feature.EnterPasswordAction
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 
 class LoginViewModel(
     private val userRepository: UserRepository,
-) : IViewModel<LoginResult>() {
+) : IViewModel<LoginAction>() {
     private val _results = MutableSharedFlow<LoginResult>(extraBufferCapacity = 1)
     val results = _results.asSharedFlow()
+
+    override fun onState(state: LoginAction) {
+        when (state) {
+            is LoginAction.CheckRegistration -> {
+                checkRegistration(state.phoneNumber)
+            }
+        }
+    }
 
     fun checkRegistration(phoneNumber: String) {
         checkRegistration { userRepository.findByPhoneNumber(phoneNumber) }
@@ -30,8 +39,12 @@ class LoginViewModel(
             )
         }
     }
+}
 
-    override fun onState(state: LoginResult) = Unit
+sealed interface LoginAction : IViewModel.IState {
+    data class CheckRegistration(
+        val phoneNumber: String
+    ) : LoginAction
 }
 
 sealed interface LoginResult : IViewModel.IState {
