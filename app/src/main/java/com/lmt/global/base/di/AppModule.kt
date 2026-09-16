@@ -22,13 +22,16 @@ import com.lmt.global.base.helper.preferences.AppSharedPreferences
 import com.google.firebase.Firebase
 import com.google.firebase.remoteconfig.remoteConfig
 import com.lmt.global.base.data.AppDatabase
-import com.lmt.global.base.data.DatabaseMigrations
 import com.lmt.global.base.data.repository.wallet.WalletRepository
 import com.lmt.global.base.data.repository.wallet.WalletRepositoryImpl
 import com.lmt.global.base.data.repository.user.UserRepository
 import com.lmt.global.base.data.repository.user.UserRepositoryImpl
+import com.lmt.global.base.data.security.BcryptPasswordHasher
+import com.lmt.global.base.data.security.PasswordHasher
+import com.lmt.global.base.presenter.create_account.CreateAccountViewModel
 import com.lmt.global.base.presenter.create_account.feature.InputOtpViewModel
 import com.lmt.global.base.presenter.login.LoginViewModel
+import com.lmt.global.base.presenter.login.feature.EnterPasswordViewModel
 import com.lmt.global.base.presenter.payment.PaymentViewModel
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
@@ -72,19 +75,16 @@ private fun databaseFeature() = object : Feature {
     override fun diModule() = module {
         single {
             Room.databaseBuilder(get(), AppDatabase::class.java, AppDatabase.DATABASE_NAME)
-                .addMigrations(
-                    DatabaseMigrations.MIGRATION_2_3,
-                    DatabaseMigrations.MIGRATION_3_4,
-                    DatabaseMigrations.MIGRATION_4_5,
-                    DatabaseMigrations.MIGRATION_5_6,
-                    DatabaseMigrations.MIGRATION_6_7,
-                )
+                .addMigrations()
                 .build()
         }
         single { get<AppDatabase>().walletDao() }
         single { get<AppDatabase>().userDao() }
+        single<PasswordHasher> {
+            BcryptPasswordHasher()
+        }
         single<WalletRepository> { WalletRepositoryImpl(get()) }
-        single<UserRepository> { UserRepositoryImpl(get()) }
+        single<UserRepository> { UserRepositoryImpl(get(), get()) }
     }
 }
 
@@ -103,5 +103,7 @@ private fun viewModels() = object : Feature {
         viewModelOf(::TransferViewModel)
         viewModelOf(::ProfileViewModel)
         viewModelOf(::PaymentViewModel)
+        viewModelOf(::CreateAccountViewModel)
+        viewModelOf(::EnterPasswordViewModel)
     }
 }

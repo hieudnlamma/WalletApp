@@ -4,8 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
-import androidx.room.withTransaction
-import com.lmt.global.base.data.AppDatabase
+import com.lmt.global.base.data.dao.WalletDao
 import com.lmt.global.base.data.entity.CardEntity
 import com.lmt.global.base.data.entity.RecipientEntity
 import com.lmt.global.base.data.entity.TransactionEntity
@@ -19,9 +18,8 @@ import kotlinx.coroutines.flow.map
 import java.util.Locale
 
 class WalletRepositoryImpl(
-    private val database: AppDatabase,
+    private val walletDao: WalletDao,
 ) : WalletRepository {
-    private val walletDao = database.walletDao()
 
     override val cards: Flow<List<CardEntity>> = walletDao.observeCards()
 
@@ -69,11 +67,11 @@ class WalletRepositoryImpl(
         amountMinor: Long,
     ): WalletActionResult {
         if (amountMinor <= 0L) return WalletActionResult.InvalidAmount
-        return database.withTransaction {
-            ensureWallet(userPhoneNumber)
-            walletDao.addBalance(amountMinor, userPhoneNumber)
-            WalletActionResult.Success()
-        }
+        walletDao.initializeAndAddBalance(
+            wallet = WalletEntity(userPhoneNumber),
+            amountMinor = amountMinor,
+        )
+        return WalletActionResult.Success()
     }
 
     override suspend fun addCard(
@@ -94,19 +92,20 @@ class WalletRepositoryImpl(
             return WalletActionResult.InvalidCard
         }
 
-        return database.withTransaction {
-            ensureWallet(userPhoneNumber)
-            val inserted = walletDao.insertCard(
-                CardEntity(
-                    id = cleanId,
-                    name = cleanName,
-                    cardNumber = cleanNumber,
-                    balanceMinor = balanceMinor,
-                    createdAt = System.currentTimeMillis(),
-                )
-            )
-            if (inserted == -1L) return@withTransaction WalletActionResult.DuplicateCard
-            if (balanceMinor > 0L) walletDao.addBalance(balanceMinor, userPhoneNumber)
+        val insertedId = walletDao.insertCardAndAddBalance(
+            wallet = WalletEntity(userPhoneNumber),
+            card = CardEntity(
+                id = cleanId,
+                name = cleanName,
+                cardNumber = cleanNumber,
+                balanceMinor = balanceMinor,
+                createdAt = System.currentTimeMillis(),
+            ),
+        )
+
+        return if (insertedId == -1L) {
+            WalletActionResult.DuplicateCard
+        } else {
             WalletActionResult.Success()
         }
     }
@@ -123,48 +122,19 @@ class WalletRepositoryImpl(
         if (cleanName.isBlank()) return WalletActionResult.InvalidRecipient
         if (amountMinor <= 0L) return WalletActionResult.InvalidAmount
 
-        return database.withTransaction {
-            ensureWallet(userPhoneNumber)
-            if (walletDao.debitBalance(amountMinor, userPhoneNumber) == 0) {
-                return@withTransaction WalletActionResult.InsufficientBalance
-            }
+        val transactionId = walletDao.transferTransaction(
+            wallet = WalletEntity(userPhoneNumber),
+            recipientName = cleanName,
+            recipientPhoneNumber = cleanPhoneNumber,
+            normalizedName = cleanName.lowercase(Locale.ROOT),
+            avatarKey = avatarKey,
+            amountMinor = amountMinor,
+            createdAt = System.currentTimeMillis(),
+        )
 
-            val now = System.currentTimeMillis()
-            val normalizedName = cleanName.lowercase(Locale.ROOT)
-            val currentRecipient = walletDao.findRecipient(normalizedName)
-            val recipientId = if (currentRecipient == null) {
-                walletDao.insertRecipient(
-                    RecipientEntity(
-                        name = cleanName,
-                        normalizedName = normalizedName,
-                        phoneNumber = cleanPhoneNumber,
-                        avatarKey = avatarKey,
-                        lastTransferAt = now,
-                    )
-                )
-            } else {
-                walletDao.updateRecipient(
-                    currentRecipient.copy(
-                        name = cleanName,
-                        phoneNumber = cleanPhoneNumber,
-                        avatarKey = avatarKey,
-                        lastTransferAt = now,
-                    )
-                )
-                currentRecipient.id
-            }
-
-            val transactionId = walletDao.insertTransaction(
-                TransactionEntity(
-                    type = TransactionEntity.TYPE_TRANSFER,
-                    title = cleanName,
-                    recipientId = recipientId,
-                    iconKey = avatarKey,
-                    amountMinor = amountMinor,
-                    createdAt = now,
-                    userPhoneNumber = userPhoneNumber,
-                )
-            )
+        return if (transactionId == null) {
+            WalletActionResult.InsufficientBalance
+        } else {
             WalletActionResult.Success(transactionId)
         }
     }
@@ -180,18 +150,15 @@ class WalletRepositoryImpl(
         dueDate: String?,
         registrationNumber: String?,
     ): WalletActionResult {
+        val cleanBillerName = billerName.trim()
         if (billerName.isBlank()) return WalletActionResult.InvalidRecipient
         if (amountMinor <= 0L) return WalletActionResult.InvalidAmount
 
-        return database.withTransaction {
-            ensureWallet(userPhoneNumber)
-            if (walletDao.debitBalance(amountMinor, userPhoneNumber) == 0) {
-                return@withTransaction WalletActionResult.InsufficientBalance
-            }
-            val transactionId = walletDao.insertTransaction(
-                TransactionEntity(
+        val transactionId = walletDao.payBillTransaction (
+            wallet = WalletEntity(userPhoneNumber = userPhoneNumber),
+            transaction = TransactionEntity(
                     type = TransactionEntity.TYPE_PAY_BILL,
-                    title = billerName.trim(),
+                    title = cleanBillerName,
                     iconKey = iconKey,
                     billerType = category,
                     category = category,
@@ -202,8 +169,11 @@ class WalletRepositoryImpl(
                     dueDate = dueDate,
                     registrationNumber = registrationNumber,
                     userPhoneNumber = userPhoneNumber,
-                )
             )
+        )
+        return if (transactionId == null) {
+            WalletActionResult.InsufficientBalance
+        } else {
             WalletActionResult.Success(transactionId)
         }
     }
@@ -215,10 +185,6 @@ class WalletRepositoryImpl(
     override suspend fun addCard(card: Card) {
         val entity = CardMapper.toEntity(card)
         walletDao.insertCard(entity)
-    }
-
-    private suspend fun ensureWallet(userPhoneNumber: String) {
-        walletDao.insertWallet(WalletEntity(userPhoneNumber = userPhoneNumber))
     }
 
     private companion object {

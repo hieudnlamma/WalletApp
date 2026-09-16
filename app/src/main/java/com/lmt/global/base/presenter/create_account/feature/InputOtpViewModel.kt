@@ -107,7 +107,8 @@ class InputOtpViewModel(
 
     private fun saveVerifiedUser(action: InputOtpAction.VerifyOtp) {
         val phoneNumber = action.phoneNumber
-        if (phoneNumber == null) {
+        val passwordHash = action.passwordHash
+        if (phoneNumber == null || passwordHash.isNullOrBlank()) {
             _effects.tryEmit(InputOtpEffect.SaveUserFailed)
             return
         }
@@ -120,15 +121,22 @@ class InputOtpViewModel(
                 _effects.tryEmit(InputOtpEffect.SaveUserFailed)
             },
         ) {
-            userRepository.add(
+            val isCreated = userRepository.add(
                 User(
                     phoneNumber = phoneNumber,
                     fullName = action.fullName,
                     email = action.email,
-                )
+                ),
+                passwordHash = passwordHash,
             )
             _uiState.update { it.copy(isSavingUser = false) }
-            _effects.emit(InputOtpEffect.AccountCreated)
+            _effects.emit(
+                if (isCreated) {
+                    InputOtpEffect.AccountCreated
+                } else {
+                    InputOtpEffect.SaveUserFailed
+                }
+            )
         }
     }
 
@@ -150,6 +158,7 @@ sealed interface InputOtpAction : IViewModel.IState {
         val phoneNumber: String?,
         val fullName: String?,
         val email: String?,
+        val passwordHash: String?,
         val isForgotPassword: Boolean,
     ) : InputOtpAction
 }

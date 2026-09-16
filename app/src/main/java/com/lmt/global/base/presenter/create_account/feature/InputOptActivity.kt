@@ -86,6 +86,7 @@ class InputOptActivity : IActivity<ActivityInputOptBinding, InputOtpViewModel>()
                 phoneNumber = phoneNumber,
                 fullName = intent.getStringExtra(EXTRA_FULL_NAME),
                 email = email,
+                passwordHash = intent.getStringExtra(EXTRA_PASSWORD_HASH),
                 isForgotPassword = intent.getStringExtra(EXTRA_FLOW) == FLOW_FORGOT_PASSWORD,
             )
         )
@@ -201,6 +202,7 @@ class InputOptActivity : IActivity<ActivityInputOptBinding, InputOtpViewModel>()
         const val EXTRA_PHONE_NUMBER = "extra_phone_number"
         const val EXTRA_FULL_NAME = "extra_full_name"
         const val EXTRA_EMAIL = "extra_email"
+        const val EXTRA_PASSWORD_HASH = "extra_password_hash"
         const val EXTRA_FLOW = "extra_otp_flow"
         const val FLOW_CREATE_ACCOUNT = "create_account"
         const val FLOW_FORGOT_PASSWORD = "forgot_password"
