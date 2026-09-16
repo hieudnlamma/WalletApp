@@ -15,7 +15,13 @@ interface WalletRepository {
 
     fun frequentRecipients(userPhoneNumber: String): Flow<List<RecipientEntity>>
 
-    fun allRecipients(userPhoneNumber: String): Flow<List<RecipientEntity>>
+    fun allRecipients(): Flow<List<RecipientEntity>>
+
+    suspend fun addRecipient(
+        name: String,
+        phoneNumber: String,
+        avatarKey: String,
+    ): Boolean
 
     fun balance(userPhoneNumber: String): Flow<Long?>
 

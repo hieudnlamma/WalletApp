@@ -29,8 +29,28 @@ class WalletRepositoryImpl(
     override fun frequentRecipients(userPhoneNumber: String): Flow<List<RecipientEntity>> =
         walletDao.observeFrequentRecipients(userPhoneNumber)
 
-    override fun allRecipients(userPhoneNumber: String): Flow<List<RecipientEntity>> =
-        walletDao.observeAllRecipients(userPhoneNumber)
+    override fun allRecipients(): Flow<List<RecipientEntity>> =
+        walletDao.observeAllRecipients()
+
+    override suspend fun addRecipient(
+        name: String,
+        phoneNumber: String,
+        avatarKey: String,
+    ): Boolean {
+        val cleanName = name.trim().replace(Regex("\\s+"), " ")
+        val cleanPhoneNumber = phoneNumber.trim()
+        if (cleanName.isBlank() || cleanPhoneNumber.isBlank()) return false
+
+        return walletDao.insertRecipient(
+            RecipientEntity(
+                name = cleanName,
+                normalizedName = cleanName.lowercase(Locale.ROOT),
+                phoneNumber = cleanPhoneNumber,
+                avatarKey = avatarKey,
+                lastTransferAt = 0L,
+            )
+        ) != -1L
+    }
 
     override fun balance(userPhoneNumber: String): Flow<Long?> =
         walletDao.observeBalance(userPhoneNumber)

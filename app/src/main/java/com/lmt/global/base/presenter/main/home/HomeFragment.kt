@@ -15,6 +15,7 @@ import com.lmt.global.base.presenter.main.home.adapter.LatestTransactionsAdapter
 import com.lmt.global.base.presenter.main.home.adapter.RecentTransfer
 import com.lmt.global.base.presenter.main.home.adapter.RecentTransfersAdapter
 import com.lmt.global.base.presenter.main.more.feature.transfer.TransferActivity
+import com.lmt.global.base.presenter.main.more.feature.transfer.TransferToBeneficiaryActivity
 import com.lmt.global.base.presenter.profile.ProfileActivity
 import com.lmt.global.base.view.bottom_sheet.DetailItemHistoryBottomSheet
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
@@ -70,6 +71,7 @@ class HomeFragment : IFragment<FragmentHomeBinding, HomeViewModel>() {
                     RecentTransfer(
                         id = recipient.id,
                         name = recipient.name,
+                        phoneNumber = recipient.phoneNumber,
                         avatarRes = R.drawable.icn_avatar_default,
                     )
                 }
@@ -90,7 +92,20 @@ class HomeFragment : IFragment<FragmentHomeBinding, HomeViewModel>() {
 
     private fun onAddRecentTransfer() = openTransfer()
 
-    private fun onRecentTransferClick(transfer: RecentTransfer) = Unit
+    private fun onRecentTransferClick(transfer: RecentTransfer) {
+        startActivity(
+            Intent(requireContext(), TransferToBeneficiaryActivity::class.java).apply {
+                putExtra(
+                    TransferToBeneficiaryActivity.EXTRA_RECIPIENT_NAME,
+                    transfer.name,
+                )
+                putExtra(
+                    TransferToBeneficiaryActivity.EXTRA_RECIPIENT_PHONE,
+                    transfer.phoneNumber,
+                )
+            }
+        )
+    }
 
     private fun openTransfer() {
         startActivity(Intent(requireContext(), TransferActivity::class.java))

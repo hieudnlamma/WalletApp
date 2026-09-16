@@ -51,7 +51,7 @@ interface WalletDao {
     @Query("SELECT * FROM recipients WHERE normalizedName = :normalizedName LIMIT 1")
     suspend fun findRecipient(normalizedName: String): RecipientEntity?
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertRecipient(recipient: RecipientEntity): Long
 
     @Update
@@ -73,20 +73,17 @@ interface WalletDao {
                 "WHERE transactions.userPhoneNumber = :userPhoneNumber " +
                 "AND transactions.type = 'TRANSFER' " +
                 "GROUP BY recipients.id " +
+                "HAVING COUNT(transactions.id) > 0 " +
                 "ORDER BY COUNT(transactions.id) DESC, MAX(transactions.createdAt) DESC, " +
                 "recipients.name COLLATE NOCASE ASC LIMIT 3"
     )
     fun observeFrequentRecipients(userPhoneNumber: String): Flow<List<RecipientEntity>>
 
     @Query(
-        "SELECT recipients.* FROM recipients " +
-                "INNER JOIN transactions ON transactions.recipientId = recipients.id " +
-                "WHERE transactions.userPhoneNumber = :userPhoneNumber " +
-                "AND transactions.type = 'TRANSFER' " +
-                "GROUP BY recipients.id " +
-                "ORDER BY recipients.name COLLATE NOCASE ASC"
+        "SELECT * FROM recipients " +
+                "ORDER BY name COLLATE NOCASE ASC, id ASC"
     )
-    fun observeAllRecipients(userPhoneNumber: String): Flow<List<RecipientEntity>>
+    fun observeAllRecipients(): Flow<List<RecipientEntity>>
 
     @Insert
     suspend fun insertTransaction(transaction: TransactionEntity): Long
