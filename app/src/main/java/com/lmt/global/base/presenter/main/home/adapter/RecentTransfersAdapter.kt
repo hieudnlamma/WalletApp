@@ -12,6 +12,7 @@ import com.lmt.global.base.databinding.ItemRecentTransfersBinding
 data class RecentTransfer(
     val id: Long,
     val name: String,
+    val phoneNumber: String,
     @DrawableRes val avatarRes: Int,
 )
 

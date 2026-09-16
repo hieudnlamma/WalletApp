@@ -35,8 +35,13 @@ class TransferActivity : IActivity<ActivityTransferBinding, TransferViewModel>()
         viewBinding.tvBack.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
-        viewBinding.imvAdd.onDebounceClick {
-            startActivity(Intent(this, TransferToBeneficiaryActivity::class.java))
+        viewBinding.llNewBills.onDebounceClick {
+            viewModel.onState(
+                TransferContactsState.AddRecipient(
+                    name = getString(R.string.ali_ahmed),
+                    phoneNumber = getString(R.string._1_300_555_0161),
+                )
+            )
         }
         viewBinding.edtSearchContact.onSearchQueryChanged { query ->
             searchQuery = query
@@ -62,12 +67,16 @@ class TransferActivity : IActivity<ActivityTransferBinding, TransferViewModel>()
 
         frequentRecipientsAdapter.submitList(emptyList())
         allRecipientsAdapter.submitList(emptyList())
+        renderRecipients()
     }
 
     private fun renderRecipients() = with(viewBinding) {
         val isSearching = searchQuery.isNotBlank()
-        tvFrequentContacts.isVisible = !isSearching
-        rcvListFrequentContacts.isVisible = !isSearching
+        val hasFrequentRecipients = frequentRecipients.isNotEmpty()
+        val showFrequentRecipients = !isSearching && hasFrequentRecipients
+
+        tvFrequentContacts.isVisible = showFrequentRecipients
+        rcvListFrequentContacts.isVisible = showFrequentRecipients
         tvAllContacts.isVisible = !isSearching
 
         frequentRecipientsAdapter.submitList(if (isSearching) emptyList() else frequentRecipients)
