@@ -9,7 +9,12 @@ interface UserRepository {
 
     fun observeByPhoneNumber(phoneNumber: String): Flow<User?>
 
-    suspend fun add(user: User): Boolean
+    suspend fun add(user: User, passwordHash: String,): Boolean
+
+    suspend fun verifyPassword(
+        phoneNumber: String,
+        password: CharArray,
+    ): Boolean
 
     suspend fun updateProfile(
         currentPhoneNumber: String,

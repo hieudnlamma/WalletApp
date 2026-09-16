@@ -18,7 +18,7 @@ import com.lmt.global.base.data.entity.UserEntity
         CardEntity::class,
         UserEntity::class
     ],
-    version = 7,
+    version = 1,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {

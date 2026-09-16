@@ -143,4 +143,8 @@
     <string name="passwords_do_not_match">Passwords do not match.</string>
     <string name="password_changed_successfully">Password changed successfully!</string>
     <string name="empty_transactions">Empty Transaction</string>
+    <string name="password_required">Please enter your password.</string>
+    <string name="incorrect_password">Incorrect password. Please try again.</string>
+    <string name="login_failed">Unable to log in. Please try again.</string>
+    <string name="password_too_long">Password must not exceed 72 UTF-8 bytes.</string>
 </resources>

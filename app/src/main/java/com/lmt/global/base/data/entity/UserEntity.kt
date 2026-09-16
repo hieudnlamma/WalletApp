@@ -9,6 +9,7 @@ data class UserEntity(
     @PrimaryKey val phoneNumber: String,
     val fullName: String? = null,
     val email: String? = null,
+    val passwordHash: String,
     val createdAt: Long = System.currentTimeMillis(),
 ) {
     fun toModel() = User(
@@ -19,10 +20,11 @@ data class UserEntity(
     )
 
     companion object {
-        fun fromModel(user: User) = UserEntity(
+        fun fromModel(user: User, passwordHash: String) = UserEntity(
             phoneNumber = user.phoneNumber,
             fullName = user.fullName,
             email = user.email,
+            passwordHash = passwordHash,
             createdAt = user.createdAt,
         )
     }

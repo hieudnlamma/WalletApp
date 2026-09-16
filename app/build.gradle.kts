@@ -141,4 +141,5 @@ dependencies {
     //Firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.bundles.firebase)
+    implementation(libs.bcrypt)
 }

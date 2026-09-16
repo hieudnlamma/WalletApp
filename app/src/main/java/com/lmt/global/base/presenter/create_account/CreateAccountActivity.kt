@@ -21,6 +21,8 @@ import com.lmt.global.base.common.CommonViewModel
 import com.lmt.global.base.common.IActivity
 import com.lmt.global.base.databinding.ActivityCreateAccountBinding
 import com.lmt.global.base.extension.TopNotificationType
+import com.lmt.global.base.extension.collectLatestRepeatOnLifecycle
+import com.lmt.global.base.extension.collectRepeatOnLifecycle
 import com.lmt.global.base.extension.showTemporaryError
 import com.lmt.global.base.extension.showTopNotification
 import com.lmt.global.base.extension.statusBars
@@ -28,9 +30,9 @@ import com.lmt.global.base.presenter.create_account.feature.InputOptActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CreateAccountActivity :
-    IActivity<ActivityCreateAccountBinding, CommonViewModel>() {
+    IActivity<ActivityCreateAccountBinding, CreateAccountViewModel>() {
 
-    override fun provideViewModel() = viewModel<CommonViewModel>()
+    override fun provideViewModel() = viewModel<CreateAccountViewModel>()
 
     override fun provideLayout() = R.layout.activity_create_account
 
@@ -53,6 +55,76 @@ class CreateAccountActivity :
         viewBinding.btnCreateNewAccount.setOnClickListener {
             createAccount()
         }
+    }
+
+    override fun initObservers() {
+        super.initObservers()
+
+        collectLatestRepeatOnLifecycle(viewModel.uiState) { state ->
+            renderCreateAccountState(state)
+        }
+
+        collectRepeatOnLifecycle(viewModel.effects) { effect ->
+            handleCreateAccountEffect(effect)
+        }
+    }
+
+    private fun renderCreateAccountState(
+        state: CreateAccountUiState,
+    ) {
+        viewBinding.btnCreateNewAccount.isEnabled =
+            !state.isHashingPassword
+
+        viewBinding.btnCreateNewAccount.alpha =
+            if (state.isHashingPassword) 0.6f else 1f
+    }
+
+    private fun handleCreateAccountEffect(
+        effect: CreateAccountEffect,
+    ) {
+        when (effect) {
+            is CreateAccountEffect.PasswordHashed -> {
+                openOtpScreen(effect.passwordHash)
+            }
+
+            CreateAccountEffect.HashPasswordFailed -> {
+                showTopNotification(
+                    message = getString(R.string.unable_to_check_user),
+                    type = TopNotificationType.ERROR,
+                )
+            }
+        }
+    }
+
+    private fun openOtpScreen(passwordHash: String) {
+        val phoneNumber = viewBinding.mobileInputContainer.phoneNumberOrNull ?: return
+        val name = viewBinding.edtName.text.toString().trim()
+        val email = viewBinding.edtEmail.text.toString().trim()
+
+        startActivity(
+            Intent(this, InputOptActivity::class.java).apply {
+                putExtra(
+                    InputOptActivity.EXTRA_FLOW,
+                    InputOptActivity.FLOW_CREATE_ACCOUNT,
+                )
+                putExtra(
+                    InputOptActivity.EXTRA_PHONE_NUMBER,
+                    phoneNumber,
+                )
+                putExtra(
+                    InputOptActivity.EXTRA_FULL_NAME,
+                    name,
+                )
+                putExtra(
+                    InputOptActivity.EXTRA_EMAIL,
+                    email,
+                )
+                putExtra(
+                    InputOptActivity.EXTRA_PASSWORD_HASH,
+                    passwordHash,
+                )
+            }
+        )
     }
 
     private fun setupInsets() {
@@ -212,13 +284,10 @@ class CreateAccountActivity :
             }
 
             else -> {
-                startActivity(
-                    Intent(this, InputOptActivity::class.java).apply {
-                        putExtra(InputOptActivity.EXTRA_FLOW, InputOptActivity.FLOW_CREATE_ACCOUNT)
-                        putExtra(InputOptActivity.EXTRA_PHONE_NUMBER, phoneNumber)
-                        putExtra(InputOptActivity.EXTRA_FULL_NAME, name)
-                        putExtra(InputOptActivity.EXTRA_EMAIL, email)
-                    }
+                viewModel.onState(
+                    CreateAccountAction.HashPassword(
+                        password = password,
+                    )
                 )
             }
         }
